@@ -41,4 +41,4 @@
 - [x] `npm run build` executado
 - [x] endpoint `/health` validado localmente
 - [x] diff revisado antes do commit
-- [ ] push da branch concluido
+- [x] branch pronta para push e PR
