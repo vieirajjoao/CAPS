@@ -41,10 +41,13 @@ CAPS/
 ## Documentacao
 
 - [docs/README.md](docs/README.md)
+- [docs/arquitetura-da-branch.md](docs/arquitetura-da-branch.md)
 - [docs/modelagem-e-requisitos.md](docs/modelagem-e-requisitos.md)
 - [docs/caps-flow.md](docs/caps-flow.md)
 - [docs/checklist-equipe.md](docs/checklist-equipe.md)
+- [docs/checklist-final-consulta.md](docs/checklist-final-consulta.md)
 - [docs/entrega-consulta.md](docs/entrega-consulta.md)
+- [docs/pull-request-consulta.md](docs/pull-request-consulta.md)
 - [docs/WORKLOG.md](docs/WORKLOG.md)
 
 ## Entrega de Consulta
