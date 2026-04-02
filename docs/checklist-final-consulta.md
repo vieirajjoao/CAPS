@@ -1,44 +1,44 @@
 # Checklist Final da Consulta
 
-## Escopo
+## Estrutura e Setup
 
-- [x] trabalhar apenas na branch `feature/consulta-slurkronox`
-- [x] manter o foco somente na entidade `Consulta`
-- [x] evitar alterar entidades de outros integrantes
+- [x] branch correta `feature/consulta-slurkronox` utilizada
+- [x] `package.json` criado
+- [x] `tsconfig.json` criado
+- [x] `.env.example` criado
+- [x] `drizzle.config.ts` criado
+- [x] `src/config/env.ts` criado
+- [x] `src/db/index.ts` criado
+- [x] `src/server.ts` configurado com bootstrap minimo
+- [x] placeholders antigos removidos
+- [x] estrutura modular organizada por dominio
 
-## Schema
+## Entrega da Consulta
 
-- [x] criar `src/db/schema/consultas.ts`
-- [x] definir `id_consulta`
-- [x] definir `id_paciente`
-- [x] definir `id_usuario`
-- [x] definir `data_hora`
-- [x] definir `status`
-- [x] definir `obs`
-- [x] definir `criado_em`
-- [x] definir `atualizado_em`
-- [x] adicionar indice por paciente
-- [x] adicionar indice por usuario
-- [x] adicionar indice por data/hora
-- [x] adicionar restricao unica para medico e horario
+- [x] schema `Consulta` criado
+- [x] export do schema realizado
+- [x] campos obrigatorios definidos
+- [x] status modelado com enum
+- [x] timestamps definidos
+- [x] indices adicionados
+- [x] restricao de horario por medico aplicada
 
-## Organizacao
+## Documentacao
 
-- [x] exportar o schema em `src/db/schema/index.ts`
-- [x] documentar a entrega em `docs/entrega-consulta.md`
-- [x] documentar fluxo e branch em `docs/caps-flow.md`
-- [x] registrar a execucao em `docs/WORKLOG.md`
-- [x] manter o `README.md` coerente com a branch
+- [x] README principal revisado
+- [x] indice de documentacao revisado
+- [x] DAS criado
+- [x] guia de contribuicao criado
+- [x] modelo de dados criado
+- [x] documentacao da entrega revisada
+- [x] template de PR disponivel
+- [x] `WORKLOG.md` atualizado
 
-## Git
+## Validacao
 
-- [x] revisar o diff da branch
-- [x] manter a branch correta sem criar branch extra desnecessaria
-- [x] fazer commits semanticos
-- [x] realizar push para `origin/feature/consulta-slurkronox`
-
-## Revisao Final
-
-- [x] confirmar que o diff relevante contra `develop` pertence ao escopo de Consulta
-- [x] preparar material para PR profissional
-- [x] manter a branch local sincronizada com a remota
+- [x] `npm install` executado
+- [x] `npm run typecheck` executado
+- [x] `npm run build` executado
+- [x] endpoint `/health` validado localmente
+- [x] diff revisado antes do commit
+- [ ] push da branch concluido

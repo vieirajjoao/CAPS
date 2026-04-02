@@ -2,7 +2,7 @@
 
 ## Objetivo do Sistema
 
-O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backend.
+O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backend, organizando usuarios, pacientes, consultas e prontuarios em uma base unica e coerente.
 
 ## Dominios Principais
 
@@ -22,13 +22,63 @@ O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backe
 | RF005 | Prontuario Eletronico | Registrar atendimento clinico durante a consulta |
 | RF006 | Relatorio de Gestao | Gerar relatorios de atendimentos por periodo |
 
+## Requisitos Nao Funcionais
+
+- RNF001: o backend deve usar Node.js com Express
+- RNF002: a modelagem deve ser feita com TypeScript e Drizzle ORM
+- RNF003: a estrutura precisa permitir colaboracao por branch sem mistura de escopo
+- RNF004: o projeto deve manter rastreabilidade tecnica por README, documentos e WORKLOG
+
 ## Regras de Negocio
 
 - um medico pode atender em uma clinica e ser paciente em outra
 - nao e permitido agendar dois pacientes para o mesmo medico no mesmo horario
 - prontuarios so podem ser editados pelo medico responsavel pelo atendimento
 
-## Entidades e Responsabilidades
+## Entidades Previstas
+
+### Usuario
+
+- `id_usuario` ou `CPF`
+- `perfil`
+- `senha_usuario`
+- `nome_usuario`
+- `email_usuario`
+- `CRM_usuario`
+
+### Paciente
+
+- `nome_paciente`
+- `data_nascimento_paciente`
+- `id_paciente`
+- `endereco_paciente`
+- `telefone_paciente`
+- `consultas_paciente`
+- `prontuarios_existentes_paciente`
+- `convenio_medico_paciente`
+- `hf`
+- `hs`
+
+### Consulta
+
+- `id_consulta`
+- `id_paciente`
+- `id_usuario`
+- `data_hora`
+- `status`
+- `obs`
+- `criado_em`
+- `atualizado_em`
+
+### Prontuario
+
+- `id_produto`
+- `nome`
+- `medico`
+- `idade do paciente`
+- `anamnese`
+
+## Responsabilidades por Integrante
 
 | Entidade | Responsavel |
 | --- | --- |
@@ -36,7 +86,8 @@ O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backe
 | Paciente | Lucas Moura Nunes de Oliveira |
 | Consulta | Savio de Brito Oliveira Filho |
 | Prontuario | Felipe Moreira Barcelos |
+| Revisao geral | Murilo |
 
 ## Escopo Desta Branch
 
-Esta branch concentra apenas a entrega de `Consulta`, sem implementar o escopo dos outros integrantes.
+Esta branch concentra a entrega do schema `Consulta` e a profissionalizacao da base do repositorio para permitir validacao, build, execucao local e PR organizado, sem implementar o dominio funcional dos outros integrantes.

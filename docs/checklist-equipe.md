@@ -1,46 +1,54 @@
 # Checklist da Equipe
 
-## Checklist Geral
+## Checklist Geral do Projeto
 
-- ler a documentacao antes de alterar o projeto
-- usar a branch correta
-- alterar apenas o proprio escopo
+- ler a documentacao principal antes de codar
+- confirmar a branch correta antes de alterar arquivos
+- manter o trabalho restrito ao proprio escopo funcional
 - revisar o diff antes de commitar
-- registrar a atividade no `WORKLOG.md`
-- fazer push para a branch correta
+- registrar as alteracoes em `docs/WORKLOG.md`
+- validar o que for possivel com comandos locais
 - abrir PR para `develop`
 
 ## Definicao de Pronto
 
-Uma entrega deve ser considerada pronta quando:
+Uma entrega esta pronta quando:
 
-- o escopo tecnico estiver completo
-- o diff estiver revisado
-- o registro estiver atualizado
-- a branch estiver correta
-- o push tiver sido concluido
+- o escopo funcional da pessoa foi concluido
+- o repositorio continua coerente e sem quebra de estrutura
+- o diff foi revisado
+- a documentacao relevante foi atualizada
+- o `WORKLOG.md` reflete os commits enviados
+- a branch e o push estao corretos
 
 ## Savio de Brito Oliveira Filho
 
 - implementar o schema `Consulta`
-- garantir os campos obrigatorios da entidade
-- manter a relacao por `id_paciente`
-- manter a relacao por `id_usuario`
-- refletir a regra de conflito de horario do medico
-- registrar a entrega no `WORKLOG.md`
+- garantir `id_consulta`, `id_paciente`, `id_usuario`, `data_hora`, `status`, `obs`, `criado_em` e `atualizado_em`
+- refletir a regra de conflito de horario por medico
+- manter os relacionamentos de `Consulta` por identificador sem invadir os outros dominios
+- deixar a branch pronta para revisao e PR
 
 ## Thalles Resende Marques
 
-- implementar `Usuario`
+- implementar o schema `Usuario`
+- definir perfil, credenciais e identificacao do profissional
+- validar campos especificos de medico como `CRM_usuario`
 
 ## Lucas Moura Nunes de Oliveira
 
-- implementar `Paciente`
+- implementar o schema `Paciente`
+- garantir dados pessoais, historicos e referencias de atendimento
+- revisar coerencia de nomes e campos do dominio
 
 ## Felipe Moreira Barcelos
 
-- implementar `Prontuario`
+- implementar o schema `Prontuario`
+- validar os campos oficiais do dominio antes de fechar a modelagem
+- evitar assumir silenciosamente inconsistencias como `id_produto`
 
 ## Murilo
 
 - revisar consistencia geral do projeto
+- validar padroes de branch, commit e PR
+- revisar conflitos de nomenclatura e de arquitetura

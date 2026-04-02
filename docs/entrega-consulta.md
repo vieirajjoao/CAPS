@@ -2,12 +2,15 @@
 
 ## Finalidade
 
-A entidade `Consulta` representa o atendimento agendado ou realizado entre paciente e profissional de saude.
+A entidade `Consulta` representa o atendimento agendado ou realizado entre um paciente e um profissional de saude, registrando identificacao, vinculos, horario, status e metadados de auditoria.
 
-## Arquivos da Entrega
+## Arquivos Principais da Entrega
 
 - `src/db/schema/consultas.ts`
 - `src/db/schema/index.ts`
+- `docs/modelo-de-dados.md`
+- `docs/checklist-final-consulta.md`
+- `docs/pull-request-consulta.md`
 
 ## Campos Implementados
 
@@ -23,22 +26,30 @@ A entidade `Consulta` representa o atendimento agendado ou realizado entre pacie
 ## Regras Refletidas no Schema
 
 - o status aceita `agendada`, `concluida` e `cancelada`
-- a consulta exige paciente e usuario responsavel
-- existe uma constraint unica em `id_usuario + data_hora`
+- toda consulta exige paciente e profissional responsavel
+- ha indices para busca por paciente, usuario e data
+- existe `uniqueIndex` em `id_usuario + data_hora`
 
-## Relacionamentos
+## Relacionamentos Mantidos por Identificador
 
-Nesta entrega, os relacionamentos foram mantidos por identificadores:
+Nesta entrega, os relacionamentos foram mantidos por:
 
 - `id_paciente`
 - `id_usuario`
 
-Isso evita invadir a parte de `Paciente` e `Usuario`, que pertencem a outros integrantes.
+Essa decisao evita implementar `Paciente` e `Usuario` nesta branch e preserva o escopo dos outros integrantes.
 
-## Limites da Entrega
+## Validacao Realizada
+
+- leitura e revisao do diff contra `develop`
+- validacao de tipagem com `npm run typecheck`
+- validacao de build com `npm run build`
+- revisao documental e registro em `docs/WORKLOG.md`
+
+## Limites Deliberados
 
 - nao implementa `Paciente`
 - nao implementa `Usuario`
 - nao implementa `Prontuario`
-- nao cria controllers, services ou repositories
-- nao cria regras de negocio fora do schema
+- nao adiciona regra de negocio fora do schema
+- nao cria camadas funcionais completas dos outros dominios

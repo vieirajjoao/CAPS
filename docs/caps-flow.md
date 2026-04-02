@@ -2,50 +2,53 @@
 
 ## Objetivo
 
-Definir uma forma previsivel de trabalhar com branches, commits e pull requests sem misturar entregas.
+Definir um fluxo previsivel de branches, commits e pull requests para que cada integrante trabalhe sem sobrescrever a entrega dos outros.
 
-## Branches do Projeto
+## Estrutura de Branches
 
-- `main`
-  branch estavel
-- `develop`
-  branch de integracao
-- `feature/*`
-  branches individuais por tarefa
+- `main`: ramo estavel e protegido
+- `develop`: ramo de integracao
+- `feature/*`: ramo individual por tarefa
 
-## Branches Ativas Relevantes
-
-- `develop`
-- `feature/consulta-slurkronox`
-- `main`
-
-## Regra de Organizacao
+## Regras Obrigatorias
 
 - nao trabalhar diretamente em `main`
-- evitar criar branch nova sem necessidade
-- manter uma branch por escopo
-- revisar o diff antes do commit
+- preferir sair sempre de `develop`
+- manter uma branch por escopo real de trabalho
+- revisar `git diff` antes de commitar
+- registrar alteracoes relevantes em `docs/WORKLOG.md`
 - abrir PR sempre para `develop`
 
-## Branch da Consulta
+## Branch da Entrega Atual
 
 - nome: `feature/consulta-slurkronox`
 - responsavel: `Savio de Brito Oliveira Filho`
-- escopo: `schema Consulta` e documentacao relacionada a essa entrega
+- entrega funcional: schema de `Consulta`
+- entrega estrutural: organizacao profissional da base do projeto
 
 ## Padrao de Commit
 
 - `feat(consulta): ...`
-- `docs(...): ...`
-- `refactor(...): ...`
+- `docs(project): ...`
+- `docs(worklog): ...`
+- `chore(setup): ...`
+- `refactor(structure): ...`
 
-## Fluxo Operacional
+## Fluxo Operacional Recomendado
 
 ```bash
 git checkout develop
-git pull origin develop
-git checkout -b feature/minha-tarefa
+git pull caps develop
+git checkout -b feature/minha-entrega
 git add .
-git commit -m "feat: minha entrega"
-git push origin feature/minha-tarefa
+git commit -m "feat(minha-entrega): descricao objetiva"
+git push caps feature/minha-entrega
 ```
+
+## Antes de Abrir o PR
+
+- confirmar a branch correta
+- revisar o diff completo
+- executar `npm run typecheck`
+- executar `npm run build`
+- conferir README, docs e WORKLOG

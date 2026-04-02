@@ -14,7 +14,16 @@
 ## Validacao
 
 - descreva como o diff foi revisado
-- informe testes, validacoes ou checagens realizadas
+- informe os comandos executados
+- registre se `npm run typecheck` e `npm run build` foram executados
+
+## Checklist
+
+- [ ] branch correta utilizada
+- [ ] diff revisado
+- [ ] documentacao atualizada
+- [ ] `docs/WORKLOG.md` atualizado
+- [ ] push concluido
 
 ## Impacto Tecnico
 

@@ -2,53 +2,62 @@
 
 ## Titulo Sugerido
 
-`feat(consulta): add consulta schema and branch documentation`
+`feat(consulta): add consulta schema and professional project bootstrap`
 
 ## Resumo
 
-Esta branch entrega a modelagem da entidade `Consulta` e organiza a documentacao necessaria para revisao da contribuicao.
+Esta branch entrega o schema da entidade `Consulta` e organiza o repositorio CAPS para um nivel mais profissional, com base executavel, configuracao do ambiente, conexao Drizzle, documentacao tecnica e material de PR.
 
 ## O que foi feito
 
 - criacao do schema `Consulta` em `src/db/schema/consultas.ts`
 - export do schema em `src/db/schema/index.ts`
-- definicao dos campos obrigatorios da entidade
-- adicao de indices para busca e organizacao do schema
-- adicao de restricao unica para impedir conflito de horario por medico
-- ampliacao da documentacao da branch e da entrega
+- configuracao do projeto com `package.json`, `tsconfig.json` e `.env.example`
+- adicao do bootstrap minimo do servidor em `src/server.ts`
+- adicao de `src/config/env.ts` para leitura tipada do ambiente
+- adicao de `src/db/index.ts` para conexao MySQL + Drizzle
+- criacao do `drizzle.config.ts`
+- organizacao da estrutura modular em `src/modules/`
+- limpeza de placeholders antigos
+- ampliacao da documentacao tecnica, operacional e de PR
 
 ## Arquivos Principais
 
+- `package.json`
+- `tsconfig.json`
+- `.env.example`
+- `drizzle.config.ts`
+- `src/config/env.ts`
+- `src/db/index.ts`
 - `src/db/schema/consultas.ts`
 - `src/db/schema/index.ts`
-- `README.md`
-- `docs/README.md`
-- `docs/entrega-consulta.md`
-- `docs/arquitetura-da-branch.md`
-- `docs/checklist-final-consulta.md`
-- `docs/WORKLOG.md`
+- `src/server.ts`
+- `docs/`
 
 ## Impacto Tecnico
 
-- estrutura a base da entidade `Consulta` para o projeto CAPS
-- prepara a branch para revisao com escopo bem definido
-- melhora a rastreabilidade tecnica da entrega
+- transforma a branch em uma base executavel e validavel
+- estrutura a entidade `Consulta` com indices e restricao de agendamento
+- deixa o projeto mais claro para os demais integrantes continuarem
+- melhora a rastreabilidade por README, guias, checklist e WORKLOG
 
 ## Limites da Entrega
 
-- nao implementa `Paciente`
-- nao implementa `Usuario`
-- nao implementa `Prontuario`
-- nao inclui controllers, services, routes ou repositories
+- nao implementa o dominio funcional de `Paciente`
+- nao implementa o dominio funcional de `Usuario`
+- nao implementa o dominio funcional de `Prontuario`
+- nao adiciona controllers, services, routes ou repositories funcionais
 
 ## Validacao Realizada
 
-- revisao do diff da branch
-- verificacao de escopo contra `develop`
+- `npm install`
+- `npm run typecheck`
+- `npm run build`
+- revisao do diff contra `caps/develop`
 - conferencia do `WORKLOG.md`
-- confirmacao de que apenas a branch correta foi utilizada
 
 ## Observacoes
 
 - os relacionamentos da consulta foram mantidos por identificadores `id_paciente` e `id_usuario`
-- a branch foi mantida isolada para evitar conflito com a entrega de outros integrantes
+- a branch correta foi mantida sem criar branch extra
+- o alvo de merge continua sendo `develop`

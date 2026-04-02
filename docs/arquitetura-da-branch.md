@@ -2,21 +2,25 @@
 
 ## Objetivo
 
-Documentar a estrutura e as decisoes adotadas especificamente na branch `feature/consulta-slurkronox`.
+Documentar a estrutura adotada na branch `feature/consulta-slurkronox`, deixando explicito o que e base compartilhada do projeto e o que e entrega funcional da responsabilidade de `Consulta`.
 
 ## Escopo Tecnico
 
-Esta branch contem apenas:
+Esta branch contem:
 
+- bootstrap minimo da aplicacao com Express
+- configuracao de ambiente com Zod
+- conexao base com MySQL e Drizzle
+- estrutura de pastas por modulo e camadas
 - schema da entidade `Consulta`
-- export do schema em `src/db/schema/index.ts`
-- documentacao da entrega e da organizacao da branch
+- documentacao tecnica, operacional e de PR
 
 ## Estrutura Relevante
 
 ```text
 feature/consulta-slurkronox
-|-- README.md
+|-- .github/
+|   `-- PULL_REQUEST_TEMPLATE.md
 |-- docs/
 |   |-- README.md
 |   |-- WORKLOG.md
@@ -24,33 +28,60 @@ feature/consulta-slurkronox
 |   |-- caps-flow.md
 |   |-- checklist-equipe.md
 |   |-- checklist-final-consulta.md
+|   |-- das.md
 |   |-- entrega-consulta.md
+|   |-- guia-de-contribuicao.md
 |   |-- modelagem-e-requisitos.md
+|   |-- modelo-de-dados.md
 |   `-- pull-request-consulta.md
-`-- src/
-    `-- db/
-        `-- schema/
-            |-- consultas.ts
-            `-- index.ts
+|-- src/
+|   |-- config/
+|   |   `-- env.ts
+|   |-- core/
+|   |   |-- errors/
+|   |   `-- middlewares/
+|   |-- db/
+|   |   |-- index.ts
+|   |   `-- schema/
+|   |       |-- consultas.ts
+|   |       `-- index.ts
+|   |-- modules/
+|   |   |-- consultas/
+|   |   |-- pacientes/
+|   |   |-- prontuarios/
+|   |   `-- usuarios/
+|   `-- server.ts
+|-- .env.example
+|-- drizzle.config.ts
+|-- package.json
+`-- tsconfig.json
 ```
 
 ## Decisoes de Arquitetura
 
-- a branch foi mantida isolada para o escopo `Consulta`
-- os relacionamentos foram representados por `id_paciente` e `id_usuario`
-- nao foram implementados schemas de outros dominios
-- nao foram criados controllers, services, routes ou repositories
-- a regra de conflito de horario foi refletida no schema por `uniqueIndex`
+- a base do projeto foi organizada antes de qualquer ampliacao funcional
+- o bootstrap do servidor foi mantido pequeno para facilitar validacao e revisao
+- a configuracao de ambiente foi centralizada em `src/config/env.ts`
+- a conexao com banco foi centralizada em `src/db/index.ts`
+- `Consulta` permaneceu como a unica entidade de dominio implementada
+- os demais modulos ficaram apenas preparados estruturalmente
+
+## Decisoes de Modelagem
+
+- `Consulta` foi relacionada a `Paciente` e `Usuario` por identificadores
+- o controle de status foi feito com `mysqlEnum`
+- a regra de conflito de horario por medico foi refletida com `uniqueIndex`
 
 ## Limites Deliberados
 
-- `Paciente`, `Usuario` e `Prontuario` permanecem fora do escopo desta branch
-- nao houve refatoracao estrutural dos demais modulos do projeto
-- nao foi feito merge para `main`; o fluxo previsto continua sendo `feature/* -> develop`
+- `Paciente`, `Usuario` e `Prontuario` nao receberam schema funcional nesta branch
+- nao foram implementados controllers, services, repositories ou routes
+- nao foram geradas migracoes
+- o alvo de integracao continua sendo `develop`, nunca `main`
 
-## Beneficios Desta Organizacao
+## Beneficios da Organizacao Atual
 
-- diff pequeno e revisavel
-- escopo claro para avaliacao
-- menor risco de conflito com outros integrantes
-- documentacao suficiente para abrir PR com contexto tecnico
+- repositorio executavel e validavel localmente
+- base clara para os demais integrantes continuarem
+- menor ambiguidade entre escopo funcional e estrutura compartilhada
+- PR mais facil de revisar tecnicamente
