@@ -1,0 +1,124 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "7355ed3a-a64d-45cd-bb14-d546eda9232b",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "consultas": {
+      "name": "consultas",
+      "columns": {
+        "id_consulta": {
+          "name": "id_consulta",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_paciente": {
+          "name": "id_paciente",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_usuario": {
+          "name": "id_usuario",
+          "type": "varchar(14)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data_hora": {
+          "name": "data_hora",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum('agendada','concluida','cancelada')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'agendada'"
+        },
+        "obs": {
+          "name": "obs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "atualizado_em": {
+          "name": "atualizado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "consultas_paciente_idx": {
+          "name": "consultas_paciente_idx",
+          "columns": [
+            "id_paciente"
+          ],
+          "isUnique": false
+        },
+        "consultas_usuario_idx": {
+          "name": "consultas_usuario_idx",
+          "columns": [
+            "id_usuario"
+          ],
+          "isUnique": false
+        },
+        "consultas_data_hora_idx": {
+          "name": "consultas_data_hora_idx",
+          "columns": [
+            "data_hora"
+          ],
+          "isUnique": false
+        },
+        "consultas_usuario_data_hora_unique": {
+          "name": "consultas_usuario_data_hora_unique",
+          "columns": [
+            "id_usuario",
+            "data_hora"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "consultas_id_consulta": {
+          "name": "consultas_id_consulta",
+          "columns": [
+            "id_consulta"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}
