@@ -55,3 +55,4 @@ Essa decisao evita implementar `Paciente` e `Usuario` nesta branch e preserva o 
 - nao implementa `Prontuario`
 - nao adiciona regra de negocio fora do schema
 - nao cria camadas funcionais completas dos outros dominios
+- nao assume desenvolvimento funcional da parte de outro participante, mesmo quando a branch e atualizada com `develop`
