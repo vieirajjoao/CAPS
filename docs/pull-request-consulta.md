@@ -64,4 +64,5 @@ Esta branch entrega o schema da entidade `Consulta` e organiza o repositorio CAP
 
 - os relacionamentos da consulta foram mantidos por identificadores `id_paciente` e `id_usuario`
 - a branch correta foi mantida sem criar branch extra
+- a branch foi atualizada com `caps/develop` sem reimplementar a parte funcional de outros participantes
 - o alvo de merge continua sendo `develop`

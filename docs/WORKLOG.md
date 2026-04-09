@@ -65,3 +65,36 @@
 - Descricao objetiva: separacao entre aplicacao e servidor HTTP, adicao de tratamento centralizado de erro e rota inexistente, inclusao de encerramento gracioso do processo e atualizacao da documentacao e dos scripts de validacao.
 - Commit: ce8a202 - refactor(server): improve app bootstrap and middleware structure
 - Status do push: ok
+
+## 2026-04-09 14:50
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: Consulta e atualizacao da branch com a base mais recente de develop
+- Branch: feature/consulta-slurkronox
+- Arquivos alterados: src/db/schema/usuarios.ts
+- Linhas adicionadas: 12
+- Linhas removidas: 0
+- Descricao objetiva: integracao da branch com `caps/develop`, preservando o arquivo de usuario trazido pelo ramo de integracao sem assumir o desenvolvimento funcional do dominio de outro participante.
+- Commit: 6d7f33a - merge(develop): update consulta branch with latest integration base
+- Status do push: ok
+
+## 2026-04-09 15:10
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: Consulta e sincronizacao final com a base atual de develop
+- Branch: feature/consulta-slurkronox
+- Arquivos alterados: merge estrutural sem alteracao liquida de arquivos de trabalho
+- Linhas adicionadas: 0
+- Linhas removidas: 0
+- Descricao objetiva: merge do `caps/develop` mais recente para garantir que a branch de Consulta ficasse totalmente alinhada com a base atual do projeto antes da abertura do PR para `develop`.
+- Commit: f48eb80 - Merge remote-tracking branch 'caps/develop' into feature/consulta-slurkronox
+- Status do push: ok
+
+## 2026-04-09 15:13
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: Consulta e reforco documental de escopo
+- Branch: feature/consulta-slurkronox
+- Arquivos alterados: docs/entrega-consulta.md, docs/guia-de-contribuicao.md, docs/pull-request-consulta.md
+- Linhas adicionadas: 8
+- Linhas removidas: 0
+- Descricao objetiva: reforco documental de que a branch de Consulta nao implementa a parte funcional de outros participantes e deve ser integrada em `develop` por PR.
+- Commit: e3d5fcf - docs(project): reinforce scope and develop integration guidance
+- Status do push: ok
