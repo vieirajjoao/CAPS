@@ -11,6 +11,8 @@ Esta branch contem:
 - bootstrap minimo da aplicacao com Express
 - configuracao de ambiente com Zod
 - conexao base com MySQL e Drizzle
+- separacao entre inicializacao HTTP e definicao da aplicacao
+- middlewares centrais de erro e rota nao encontrada
 - estrutura de pastas por modulo e camadas
 - schema da entidade `Consulta`
 - documentacao tecnica, operacional e de PR
@@ -35,11 +37,15 @@ feature/consulta-slurkronox
 |   |-- modelo-de-dados.md
 |   `-- pull-request-consulta.md
 |-- src/
+|   |-- app.ts
 |   |-- config/
 |   |   `-- env.ts
 |   |-- core/
 |   |   |-- errors/
+|   |   |   `-- app-error.ts
 |   |   `-- middlewares/
+|   |       |-- error-handler.ts
+|   |       `-- not-found-handler.ts
 |   |-- db/
 |   |   |-- index.ts
 |   |   `-- schema/
@@ -61,6 +67,7 @@ feature/consulta-slurkronox
 
 - a base do projeto foi organizada antes de qualquer ampliacao funcional
 - o bootstrap do servidor foi mantido pequeno para facilitar validacao e revisao
+- a aplicacao Express foi separada de `src/server.ts` para reduzir acoplamento
 - a configuracao de ambiente foi centralizada em `src/config/env.ts`
 - a conexao com banco foi centralizada em `src/db/index.ts`
 - `Consulta` permaneceu como a unica entidade de dominio implementada

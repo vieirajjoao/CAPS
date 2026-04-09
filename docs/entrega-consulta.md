@@ -41,7 +41,9 @@ Essa decisao evita implementar `Paciente` e `Usuario` nesta branch e preserva o 
 
 ## Validacao Realizada
 
+- validacao estrutural da arquitetura base da branch
 - leitura e revisao do diff contra `develop`
+- execucao de `npm run check`
 - validacao de tipagem com `npm run typecheck`
 - validacao de build com `npm run build`
 - revisao documental e registro em `docs/WORKLOG.md`

@@ -14,8 +14,10 @@ Esta branch entrega o schema da entidade `Consulta` e organiza o repositorio CAP
 - export do schema em `src/db/schema/index.ts`
 - configuracao do projeto com `package.json`, `tsconfig.json` e `.env.example`
 - adicao do bootstrap minimo do servidor em `src/server.ts`
+- separacao da aplicacao HTTP em `src/app.ts`
 - adicao de `src/config/env.ts` para leitura tipada do ambiente
 - adicao de `src/db/index.ts` para conexao MySQL + Drizzle
+- adicao de middlewares centrais para `404` e tratamento de erro
 - criacao do `drizzle.config.ts`
 - organizacao da estrutura modular em `src/modules/`
 - limpeza de placeholders antigos
@@ -29,6 +31,7 @@ Esta branch entrega o schema da entidade `Consulta` e organiza o repositorio CAP
 - `drizzle.config.ts`
 - `src/config/env.ts`
 - `src/db/index.ts`
+- `src/app.ts`
 - `src/db/schema/consultas.ts`
 - `src/db/schema/index.ts`
 - `src/server.ts`
@@ -51,6 +54,7 @@ Esta branch entrega o schema da entidade `Consulta` e organiza o repositorio CAP
 ## Validacao Realizada
 
 - `npm install`
+- `npm run check`
 - `npm run typecheck`
 - `npm run build`
 - revisao do diff contra `caps/develop`

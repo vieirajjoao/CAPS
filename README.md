@@ -61,6 +61,7 @@ npm run dev
 
 - `npm run dev`: sobe o servidor em modo de desenvolvimento com `tsx`
 - `npm run build`: compila o projeto para `dist/`
+- `npm run check`: executa `typecheck` e `build` em sequencia
 - `npm run start`: executa a build compilada
 - `npm run typecheck`: valida a tipagem sem gerar artefatos
 - `npm run db:generate`: gera arquivos do Drizzle Kit
@@ -87,11 +88,15 @@ CAPS/
 |   |-- modelo-de-dados.md
 |   `-- pull-request-consulta.md
 |-- src/
+|   |-- app.ts
 |   |-- config/
 |   |   `-- env.ts
 |   |-- core/
 |   |   |-- errors/
+|   |   |   `-- app-error.ts
 |   |   `-- middlewares/
+|   |       |-- error-handler.ts
+|   |       `-- not-found-handler.ts
 |   |-- db/
 |   |   |-- index.ts
 |   |   `-- schema/
@@ -123,6 +128,14 @@ O schema de `Consulta` foi implementado em [src/db/schema/consultas.ts](src/db/s
 - `uniqueIndex` para impedir dois agendamentos do mesmo medico no mesmo horario
 
 Os demais dominios nao foram implementados nesta branch para evitar invasao do escopo de outros integrantes.
+
+## Melhorias Estruturais Recentes
+
+- separacao entre `app` e `server` para facilitar testes e bootstrap
+- middleware central para tratamento de erro
+- middleware de `404` para rotas inexistentes
+- encerramento gracioso do servidor em `SIGINT` e `SIGTERM`
+- script `npm run check` para validacao rapida da branch
 
 ## Documentacao
 
