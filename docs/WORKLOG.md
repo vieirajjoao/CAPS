@@ -54,3 +54,14 @@
 - Descricao objetiva: adicao do bootstrap executavel do projeto com Node.js, Express, TypeScript e Drizzle, organizacao profissional da estrutura de pastas, limpeza de placeholders e revisao completa da documentacao tecnica da branch.
 - Commit: 2245952 - refactor(structure): professionalize project bootstrap and repository layout
 - Status do push: ok
+
+## 2026-04-09 14:36
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: Consulta e refinamento da arquitetura do servidor
+- Branch: feature/consulta-slurkronox
+- Arquivos alterados: README.md, docs/arquitetura-da-branch.md, docs/checklist-final-consulta.md, docs/entrega-consulta.md, docs/pull-request-consulta.md, package.json, src/app.ts, src/core/errors/app-error.ts, src/core/middlewares/error-handler.ts, src/core/middlewares/not-found-handler.ts, src/server.ts
+- Linhas adicionadas: 114
+- Linhas removidas: 21
+- Descricao objetiva: separacao entre aplicacao e servidor HTTP, adicao de tratamento centralizado de erro e rota inexistente, inclusao de encerramento gracioso do processo e atualizacao da documentacao e dos scripts de validacao.
+- Commit: ce8a202 - refactor(server): improve app bootstrap and middleware structure
+- Status do push: ok
