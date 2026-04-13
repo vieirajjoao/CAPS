@@ -2,6 +2,7 @@ import { type NextFunction, type Request, type Response } from "express";
 import { ZodError } from "zod";
 import { AppError } from "../errors/app-error";
 
+// Esse cara centraliza a saida de erro pra resposta ficar padronizada.
 export const errorHandler = (
   error: unknown,
   _request: Request,

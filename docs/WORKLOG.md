@@ -98,3 +98,15 @@
 - Descricao objetiva: reforco documental de que a branch de Consulta nao implementa a parte funcional de outros participantes e deve ser integrada em `develop` por PR.
 - Commit: e3d5fcf - docs(project): reinforce scope and develop integration guidance
 - Status do push: ok
+
+## 2026-04-09 15:36
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: Consulta e clareza da base tecnica da branch
+- Branch: feature/consulta-slurkronox
+- Arquivos alterados: .env.example, drizzle.config.ts, src/app.ts, src/server.ts, src/config/env.ts, src/db/index.ts, src/db/schema/consultas.ts, src/db/schema/index.ts, src/db/schema/usuarios.ts, src/core/errors/app-error.ts, src/core/middlewares/error-handler.ts, src/core/middlewares/not-found-handler.ts, drizzle/0000_smart_tenebrous.sql, drizzle/meta/0000_snapshot.json, drizzle/meta/_journal.json
+- Linhas adicionadas: 209
+- Linhas removidas: 16
+- Descricao objetiva: alinhamento da configuracao de ambiente com o Drizzle, geracao da migration inicial da entidade Consulta e adicao de comentarios curtos e naturais nos arquivos de codigo pra facilitar leitura, manutencao e entendimento da branch.
+- Commit: b0a13f0 - refactor(base): align drizzle setup and clarify core files
+- Status do push: ok
