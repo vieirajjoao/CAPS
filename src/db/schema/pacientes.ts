@@ -11,3 +11,6 @@ export const pacientes = pgTable("pacientes", {
     hs: text("hs_paciente"),
 
   });
+
+  export type Paciente = typeof pacientes.$inferSelect;
+  export type NovoPaciente = typeof pacientes.$inferInsert;

@@ -13,3 +13,6 @@ export const prontuario = pgTable('prontuario', {
 
   atualizado_em: timestamp('atualizado_em').defaultNow(),
 });
+
+export type Prontuario = typeof prontuario.$inferSelect;
+export type NovoProntuario = typeof prontuario.$inferInsert;

@@ -12,3 +12,6 @@ export const usuarios = pgTable("usuarios", {
     perfil: perfilEnum("perfil").notNull(),
     crm: varchar("crm_usuario", { length: 20 }),
 });
+
+export type Usuario = typeof usuarios.$inferSelect;
+export type NovoUsuario = typeof usuarios.$inferInsert;
