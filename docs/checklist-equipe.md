@@ -8,6 +8,7 @@
 - revisar o diff antes de commitar
 - registrar as alteracoes em `docs/WORKLOG.md`
 - validar o que for possivel com comandos locais
+- revisar a wiki quando a mudanca mexer em contexto, arquitetura ou fluxo
 - abrir PR para `develop`
 
 ## Definicao de Pronto
@@ -52,3 +53,4 @@ Uma entrega esta pronta quando:
 - revisar consistencia geral do projeto
 - validar padroes de branch, commit e PR
 - revisar conflitos de nomenclatura e de arquitetura
+- conferir se a documentacao acompanha o estado real do codigo

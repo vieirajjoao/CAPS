@@ -88,6 +88,16 @@ O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backe
 | Prontuario | Felipe Moreira Barcelos |
 | Revisao geral | Murilo |
 
-## Escopo Desta Branch
+## Estado Atual de Cobertura
 
-Esta branch concentra a entrega do schema `Consulta` e a profissionalizacao da base do repositorio para permitir validacao, build, execucao local e PR organizado, sem implementar o dominio funcional dos outros integrantes.
+No codigo atual:
+
+- `Consulta` possui schema em `mysql-core`, migration inicial e documentacao especifica
+- `Usuario`, `Paciente` e `Prontuario` possuem arquivos de schema no repositorio, mas ainda precisam de alinhamento tecnico com a configuracao MySQL adotada no projeto
+- a estrutura de modulos existe para os quatro dominios, mas ainda sem implementacao funcional completa
+
+## Observacoes Importantes
+
+- a modelagem conceitual do projeto continua valida para os quatro dominios
+- a implementacao tecnica ainda esta em consolidacao
+- toda documentacao deve refletir o estado real do codigo, mesmo quando houver pendencias entre modelagem e implementacao

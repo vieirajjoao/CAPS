@@ -1,48 +1,34 @@
-# Checklist Final da Consulta
+# Checklist de Revisao da Consulta
 
-## Estrutura e Setup
+## Schema
 
-- [x] branch correta `feature/consulta-slurkronox` utilizada
-- [x] `package.json` criado
-- [x] `tsconfig.json` criado
-- [x] `.env.example` criado
-- [x] `drizzle.config.ts` criado
-- [x] `src/app.ts` criado
-- [x] `src/config/env.ts` criado
-- [x] `src/db/index.ts` criado
-- [x] `src/server.ts` configurado com bootstrap minimo
-- [x] middlewares centrais de erro e `404` adicionados
-- [x] placeholders antigos removidos
-- [x] estrutura modular organizada por dominio
+- [x] `src/db/schema/consultas.ts` existe
+- [x] os campos obrigatorios da entidade foram definidos
+- [x] o status foi modelado com enum
+- [x] os timestamps foram definidos
+- [x] ha indices para paciente, usuario e data
+- [x] existe restricao de horario por medico
 
-## Entrega da Consulta
+## Integracao Tecnica
 
-- [x] schema `Consulta` criado
-- [x] export do schema realizado
-- [x] campos obrigatorios definidos
-- [x] status modelado com enum
-- [x] timestamps definidos
-- [x] indices adicionados
-- [x] restricao de horario por medico aplicada
+- [x] o schema esta exportado em `src/db/schema/index.ts`
+- [x] a migration inicial da tabela `consultas` existe em `drizzle/`
+- [x] a configuracao do projeto para MySQL acompanha esse schema
 
-## Documentacao
+## Documentacao Relacionada
 
-- [x] README principal revisado
-- [x] indice de documentacao revisado
-- [x] DAS criado
-- [x] guia de contribuicao criado
-- [x] modelo de dados criado
-- [x] documentacao da entrega revisada
-- [x] template de PR disponivel
-- [x] `WORKLOG.md` atualizado
+- [x] README principal referencia a entidade
+- [x] `docs/modelo-de-dados.md` descreve o schema
+- [x] `docs/entrega-consulta.md` descreve a finalidade e os limites
+- [x] `docs/WORKLOG.md` registra as alteracoes historicas da entrega
 
 ## Validacao
 
-- [x] `npm install` executado
-- [x] `npm run check` executado
-- [x] `npm run typecheck` executado
-- [x] `npm run build` executado
-- [x] endpoint `/health` validado localmente
-- [x] resposta `404` validada localmente para rota inexistente
-- [x] diff revisado antes do commit
-- [x] branch pronta para push e PR
+- [x] `npm run check` esta disponivel como validacao principal da base
+- [x] `GET /health` e `GET /` existem na base
+- [x] a API responde `404` em JSON para rotas inexistentes
+
+## Limites Conhecidos
+
+- [ ] relacionamento por foreign key real ainda nao foi consolidado
+- [ ] integracao funcional com os outros dominios ainda nao foi implementada

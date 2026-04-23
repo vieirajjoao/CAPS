@@ -19,20 +19,13 @@ Definir um fluxo previsivel de branches, commits e pull requests para que cada i
 - registrar alteracoes relevantes em `docs/WORKLOG.md`
 - abrir PR sempre para `develop`
 
-## Branch da Entrega Atual
-
-- nome: `feature/consulta-slurkronox`
-- responsavel: `Savio de Brito Oliveira Filho`
-- entrega funcional: schema de `Consulta`
-- entrega estrutural: organizacao profissional da base do projeto
-
 ## Padrao de Commit
 
-- `feat(consulta): ...`
-- `docs(project): ...`
-- `docs(worklog): ...`
-- `chore(setup): ...`
-- `refactor(structure): ...`
+- `feat(modulo): ...`
+- `fix(modulo): ...`
+- `docs(area): ...`
+- `chore(area): ...`
+- `refactor(area): ...`
 
 ## Fluxo Operacional Recomendado
 
@@ -49,6 +42,12 @@ git push caps feature/minha-entrega
 
 - confirmar a branch correta
 - revisar o diff completo
-- executar `npm run typecheck`
-- executar `npm run build`
+- executar `npm run check`
 - conferir README, docs e WORKLOG
+- conferir se a wiki precisa acompanhar a mudanca
+
+## Regra para Integracao
+
+- `main` e `develop` devem ser tratados como ramos protegidos
+- o merge final deve passar por revisao
+- se o projeto exigir comentarios obrigatorios em PR, eles devem ser uteis e tecnicos
