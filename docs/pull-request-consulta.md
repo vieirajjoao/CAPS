@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Servir como roteiro para PRs tecnicos do CAPS, especialmente quando a entrega envolve modelagem, documentacao, refinamento estrutural ou sincronizacao entre repositorio e wiki.
+Servir como roteiro para PRs tecnicos do CAPS, especialmente quando a entrega envolve modelagem, migration, documentacao, refinamento estrutural ou sincronizacao com `develop`.
 
 ## Estrutura Recomendada
 
@@ -10,9 +10,9 @@ Servir como roteiro para PRs tecnicos do CAPS, especialmente quando a entrega en
 
 Usar titulo claro e semantico, por exemplo:
 
-- `docs(project): refine repository documentation and sync wiki`
-- `feat(consulta): update consulta schema and related docs`
-- `refactor(structure): align project base with current implementation`
+- `feat(db): enforce foreign keys across clinical schemas`
+- `docs(project): refine repository documentation`
+- `refactor(structure): align backend base with current implementation`
 
 ### Resumo
 
@@ -20,7 +20,7 @@ Explicar em poucas linhas:
 
 - o que foi alterado
 - por que foi alterado
-- se o foco foi codigo, documentacao, arquitetura ou integracao
+- qual era a causa raiz, quando se tratar de correcao
 
 ### Alteracoes Principais
 
@@ -31,8 +31,10 @@ Listar os arquivos ou grupos de arquivos mais relevantes.
 Registrar o que foi executado, por exemplo:
 
 - `npm run check`
+- `npm run db:generate`
+- `npm run db:migrate`
 - revisao de `git diff`
-- validacao de README, docs e wiki
+- consulta em `information_schema`, quando houver alteracao de banco
 - smoke test dos endpoints basicos, quando aplicavel
 
 ### Impacto Tecnico
@@ -41,9 +43,9 @@ Esclarecer se o PR:
 
 - altera estrutura
 - atualiza modelagem
+- cria ou ajusta migrations
 - corrige documentacao
 - melhora rastreabilidade
-- expone algum ponto de atencao tecnico
 
 ### Observacoes
 
@@ -52,6 +54,7 @@ Usar este bloco para:
 - inconsistencias conhecidas
 - limites do escopo
 - dependencias de validacao do time
+- overrides locais usados apenas para teste, quando houver
 
 ## Regras para um PR Bom
 
@@ -60,3 +63,4 @@ Usar este bloco para:
 - nao abrir PR com documentacao desalinhada do codigo
 - nao omitir pendencias tecnicas relevantes
 - manter o alvo em `develop`, salvo excecao explicitamente combinada
+- se houver regra do time, incluir pelo menos 2 comentarios uteis no PR

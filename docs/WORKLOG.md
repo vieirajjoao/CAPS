@@ -143,3 +143,27 @@
 - Descricao objetiva: correcao do script `npm run start` para apontar para a build compilada em `dist/server.js`, mantendo o comando coerente com o `outDir` do TypeScript e com a documentacao do projeto.
 - Commit: f528ced - fix(scripts): point start command to compiled server
 - Status do push: ok
+
+## 2026-04-23 15:01
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: integridade referencial e alinhamento do schema MySQL
+- Branch: feature/repo-health-stability
+- Arquivos alterados: README.md, docs/README.md, docs/das.md, docs/entrega-consulta.md, docs/modelo-de-dados.md, drizzle/0001_cold_nuke.sql, drizzle/meta/0001_snapshot.json, drizzle/meta/_journal.json, src/db/schema/consultas.ts, src/db/schema/index.ts, src/db/schema/pacientes.ts, src/db/schema/prontuario.ts, src/db/schema/relations.ts, src/db/schema/usuarios.ts
+- Linhas adicionadas: 720
+- Linhas removidas: 164
+- Descricao objetiva: alinhamento dos schemas para MySQL, criacao de foreign keys reais entre consultas/prontuario e pacientes/usuarios, geracao da migration consolidada, adicao das relations do Drizzle e atualizacao da documentacao tecnica para refletir a integridade referencial validada no banco.
+- Commit: 21061fe - feat(db): enforce foreign keys across clinical schemas
+- Status do push: ok
+
+## 2026-04-23 15:11
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: sincronizacao com develop e consolidacao documental do PR de integridade referencial
+- Branch: feature/repo-health-stability
+- Arquivos alterados: .github/PULL_REQUEST_TEMPLATE.md, README.md, docs/README.md, docs/WORKLOG.md, docs/arquitetura-da-branch.md, docs/caps-flow.md, docs/checklist-equipe.md, docs/checklist-final-consulta.md, docs/das.md, docs/entrega-consulta.md, docs/guia-de-contribuicao.md, docs/modelagem-e-requisitos.md, docs/modelo-de-dados.md, docs/pull-request-consulta.md, package.json
+- Linhas adicionadas: 489
+- Linhas removidas: 241
+- Descricao objetiva: integracao da documentacao refinada que entrou em `develop`, eliminacao de referencias desatualizadas a branch antiga e consolidacao dos documentos para refletir o estado real do banco, das migrations, das FKs e do fluxo atual do repositorio.
+- Commit: 4e559bc - merge(develop): sync documentation base into foreign key branch
+- Status do push: ok

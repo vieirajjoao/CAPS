@@ -92,12 +92,13 @@ O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backe
 
 No codigo atual:
 
-- `Consulta` possui schema em `mysql-core`, migration inicial e documentacao especifica
-- `Usuario`, `Paciente` e `Prontuario` possuem arquivos de schema no repositorio, mas ainda precisam de alinhamento tecnico com a configuracao MySQL adotada no projeto
+- `Consulta`, `Paciente`, `Usuario` e `Prontuario` possuem schema em MySQL no Drizzle
+- `Consulta` e `Prontuario` ja possuem foreign keys reais para `Paciente` e `Usuario`
+- o projeto possui migrations para `consultas` e para consolidacao das tabelas restantes com FKs
 - a estrutura de modulos existe para os quatro dominios, mas ainda sem implementacao funcional completa
 
 ## Observacoes Importantes
 
 - a modelagem conceitual do projeto continua valida para os quatro dominios
-- a implementacao tecnica ainda esta em consolidacao
-- toda documentacao deve refletir o estado real do codigo, mesmo quando houver pendencias entre modelagem e implementacao
+- a implementacao tecnica do banco ja possui integridade referencial entre os principais dominios clinicos
+- toda documentacao deve refletir o estado real do codigo, das migrations e do banco validado

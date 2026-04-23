@@ -9,31 +9,22 @@ O CAPS organiza o backend de uma clinica medica em torno de quatro dominios:
 - usuarios
 - pacientes
 - consultas
-- prontuarios
+- prontuario
 
-O projeto ja possui uma base executavel, configuracao de ambiente, estrutura modular, middlewares globais, conexao com banco e schemas iniciais. A documentacao deste repositorio acompanha o estado real do codigo e registra os pontos que ainda precisam de alinhamento tecnico.
+O repositorio ja possui uma base executavel, configuracao de ambiente, middlewares globais, conexao com banco, schemas Drizzle e migrations versionadas. A documentacao foi ajustada para refletir o estado real do codigo e do banco, sem prometer implementacoes que ainda nao existem.
 
 ## Estado Atual do Projeto
 
-Hoje o repositorio contem:
+Hoje o projeto contem:
 
 - bootstrap HTTP com `app.ts` e `server.ts`
 - validacao de ambiente com Zod em `src/config/env.ts`
 - conexao com MySQL e Drizzle em `src/db/index.ts`
-- schema e migration inicial de `Consulta`
-- schemas iniciais para `Usuario`, `Paciente` e `Prontuario`
+- 4 tabelas modeladas no Drizzle com dialeto MySQL
+- migrations versionadas em `drizzle/`
+- foreign keys reais entre `consultas` e `pacientes`/`usuarios`
+- foreign keys reais entre `prontuario` e `pacientes`/`usuarios`
 - estrutura modular pronta para controllers, services, repositories e routes
-- documentacao tecnica, operacional e de rastreabilidade
-
-## Pontos de Atencao Tecnicos
-
-- `drizzle.config.ts` e `src/db/index.ts` estao configurados para MySQL
-- `src/db/schema/consultas.ts` usa `mysql-core`, coerente com a configuracao atual
-- `src/db/schema/usuarios.ts`, `src/db/schema/pacientes.ts` e `src/db/schema/prontuario.ts` ainda usam `pg-core`
-- a migration em `drizzle/` hoje reflete apenas a tabela `consultas`
-- as pastas em `src/modules/` ja existem, mas ainda estao so com estrutura base
-
-Esses pontos nao impedem leitura, build e organizacao do projeto, mas precisam ser considerados antes de uma consolidacao completa do banco em MySQL.
 
 ## Stack
 
@@ -60,13 +51,19 @@ npm install
 npm run check
 ```
 
-5. Gere migrations com o Drizzle, se necessario:
+5. Gere migrations com o Drizzle, quando necessario:
 
 ```bash
 npm run db:generate
 ```
 
-6. Rode em desenvolvimento:
+6. Aplique migrations:
+
+```bash
+npm run db:migrate
+```
+
+7. Rode em desenvolvimento:
 
 ```bash
 npm run dev
@@ -92,13 +89,13 @@ DB_NAME=caps
 - `npm run dev`: sobe o servidor com `tsx`
 - `npm run build`: compila o projeto para `dist/`
 - `npm run check`: executa `typecheck` e `build`
-- `npm run start`: executa a build compilada
+- `npm run start`: executa o servidor compilado
 - `npm run typecheck`: valida a tipagem sem gerar artefatos
 - `npm run db:generate`: gera migrations com Drizzle Kit
 - `npm run db:migrate`: executa migrations
 - `npm run db:studio`: abre o Drizzle Studio
 
-## Estrutura do Projeto
+## Estrutura Relevante
 
 ```text
 CAPS/
@@ -119,6 +116,7 @@ CAPS/
 |   `-- pull-request-consulta.md
 |-- drizzle/
 |   |-- 0000_smart_tenebrous.sql
+|   |-- 0001_cold_nuke.sql
 |   `-- meta/
 |-- src/
 |   |-- app.ts
@@ -136,6 +134,7 @@ CAPS/
 |   |       |-- consultas.ts
 |   |       |-- pacientes.ts
 |   |       |-- prontuario.ts
+|   |       |-- relations.ts
 |   |       |-- usuarios.ts
 |   |       `-- index.ts
 |   |-- modules/
@@ -150,6 +149,20 @@ CAPS/
 `-- tsconfig.json
 ```
 
+## Integridade Referencial
+
+As chaves estrangeiras implementadas hoje sao:
+
+- `consultas.id_paciente -> pacientes.id_paciente`
+- `consultas.id_usuario -> usuarios.id_usuario`
+- `prontuario.id_paciente -> pacientes.id_paciente`
+- `prontuario.id_usuario -> usuarios.id_usuario`
+
+As constraints usam:
+
+- `ON DELETE RESTRICT`
+- `ON UPDATE CASCADE`
+
 ## Validacao Local
 
 Hoje a base permite validar com:
@@ -157,6 +170,8 @@ Hoje a base permite validar com:
 - `npm run typecheck`
 - `npm run build`
 - `npm run check`
+- `npm run db:generate`
+- `npm run db:migrate`
 
 Quando o servidor sobe corretamente:
 
@@ -183,8 +198,7 @@ Quando o servidor sobe corretamente:
 
 1. atualizar `develop`
 2. criar uma branch `feature/*` para a tarefa
-3. trabalhar apenas no proprio escopo
-4. revisar o diff localmente
-5. validar o que o projeto suporta
-6. atualizar a documentacao e o `WORKLOG`, quando aplicavel
-7. abrir Pull Request para `develop`
+3. revisar o diff localmente
+4. validar o que o projeto suporta
+5. atualizar a documentacao e o `WORKLOG`, quando aplicavel
+6. abrir Pull Request para `develop`

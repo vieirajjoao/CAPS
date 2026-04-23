@@ -13,7 +13,8 @@ Definir um fluxo previsivel de branches, commits e pull requests para que cada i
 ## Regras Obrigatorias
 
 - nao trabalhar diretamente em `main`
-- preferir sair sempre de `develop`
+- nao trabalhar diretamente em `develop`
+- sair sempre de `develop`
 - manter uma branch por escopo real de trabalho
 - revisar `git diff` antes de commitar
 - registrar alteracoes relevantes em `docs/WORKLOG.md`
@@ -45,9 +46,12 @@ git push caps feature/minha-entrega
 - executar `npm run check`
 - conferir README, docs e WORKLOG
 - conferir se a wiki precisa acompanhar a mudanca
+- integrar `develop` se o PR estiver defasado
 
-## Regra para Integracao
+## Regras para PR
 
-- `main` e `develop` devem ser tratados como ramos protegidos
-- o merge final deve passar por revisao
-- se o projeto exigir comentarios obrigatorios em PR, eles devem ser uteis e tecnicos
+- manter escopo objetivo
+- descrever causa raiz, solucao e validacao quando houver correcao tecnica
+- nao abrir PR com documentacao desalinhada do codigo
+- incluir pelo menos 2 comentarios uteis quando essa regra estiver ativa para o time
+- fechar ou alinhar PRs antigos quando forem substituidos ou perderem contexto

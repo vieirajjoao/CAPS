@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Documentar o estado real da implementacao atual do CAPS, deixando claro o que ja existe no codigo, o que esta apenas estruturado e quais pontos ainda precisam de alinhamento tecnico.
+Documentar o estado real da implementacao atual do CAPS, deixando claro o que ja existe no codigo, o que esta apenas estruturado e quais pontos ainda precisam de evolucao.
 
 ## O Que Ja Esta Pronto
 
@@ -12,8 +12,10 @@ Documentar o estado real da implementacao atual do CAPS, deixando claro o que ja
 - conexao centralizada com MySQL e Drizzle
 - tratamento global de erro e `404`
 - estrutura modular por dominio em `src/modules/`
-- schema e migration inicial da entidade `Consulta`
-- schemas iniciais para `Usuario`, `Paciente` e `Prontuario`
+- schemas de `Consulta`, `Paciente`, `Usuario` e `Prontuario`
+- relations tipadas em `src/db/schema/relations.ts`
+- migrations versionadas em `drizzle/`
+- foreign keys reais entre `consultas`/`prontuario` e `pacientes`/`usuarios`
 
 ## O Que Esta So Estruturado
 
@@ -43,6 +45,7 @@ src/
 |       |-- consultas.ts
 |       |-- pacientes.ts
 |       |-- prontuario.ts
+|       |-- relations.ts
 |       |-- usuarios.ts
 |       `-- index.ts
 `-- modules/
@@ -58,24 +61,26 @@ src/
 - o ambiente foi centralizado em um unico arquivo tipado
 - a conexao com banco foi centralizada em `src/db/index.ts`
 - a pasta `src/modules/` ja prepara a evolucao por dominio sem misturar camadas
+- a modelagem do banco foi consolidada em MySQL
+- a integridade referencial passou a ser garantida no banco, nao apenas no codigo
 
 ## Pontos de Atencao
 
-- a configuracao geral do projeto usa MySQL
-- o schema de `Consulta` acompanha esse dialeto com `mysql-core`
-- os schemas de `Usuario`, `Paciente` e `Prontuario` ainda usam `pg-core`
-- a migration em `drizzle/` cobre apenas a tabela `consultas`
+- a validacao do banco local depende da configuracao de ambiente de cada desenvolvedor
+- o projeto ainda nao possui camadas HTTP/servico/repositorio implementadas
+- qualquer alteracao em schema precisa manter sincronismo com migration, README e WORKLOG
 
 ## Leitura Correta do Estado Atual
 
-Hoje o projeto nao esta "parado so em Consulta". O que existe e:
+Hoje o projeto nao esta limitado a `Consulta` isolada. O que existe e:
 
-- um dominio `Consulta` mais maduro dentro da base
-- tres outros schemas iniciais ja presentes no repositorio
-- uma base comum pronta para evolucao
+- um backend base executavel
+- quatro schemas modelados
+- relacoes reais entre os principais dominios clinicos
+- uma base comum pronta para evolucao funcional
 
 Isso significa que a documentacao precisa mostrar ao mesmo tempo:
 
 - o que ja esta implementado
-- o que ainda esta inconsistente
-- o que ainda falta para consolidacao do backend
+- o que foi validado de verdade
+- o que ainda falta para consolidacao completa do backend
