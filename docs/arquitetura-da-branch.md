@@ -1,94 +1,86 @@
-# Arquitetura da Branch Consulta
+# Estado Atual da Base
 
 ## Objetivo
 
-Documentar a estrutura adotada na branch `feature/consulta-slurkronox`, deixando explicito o que e base compartilhada do projeto e o que e entrega funcional da responsabilidade de `Consulta`.
+Documentar o estado real da implementacao atual do CAPS, deixando claro o que ja existe no codigo, o que esta apenas estruturado e quais pontos ainda precisam de evolucao.
 
-## Escopo Tecnico
+## O Que Ja Esta Pronto
 
-Esta branch contem:
+- bootstrap minimo da API com Express
+- separacao entre `app.ts` e `server.ts`
+- leitura e validacao de ambiente com Zod
+- conexao centralizada com MySQL e Drizzle
+- tratamento global de erro e `404`
+- estrutura modular por dominio em `src/modules/`
+- schemas de `Consulta`, `Paciente`, `Usuario` e `Prontuario`
+- relations tipadas em `src/db/schema/relations.ts`
+- migrations versionadas em `drizzle/`
+- foreign keys reais entre `consultas`/`prontuario` e `pacientes`/`usuarios`
 
-- bootstrap minimo da aplicacao com Express
-- configuracao de ambiente com Zod
-- conexao base com MySQL e Drizzle
-- separacao entre inicializacao HTTP e definicao da aplicacao
-- middlewares centrais de erro e rota nao encontrada
-- estrutura de pastas por modulo e camadas
-- schema da entidade `Consulta`
-- documentacao tecnica, operacional e de PR
+## O Que Esta So Estruturado
 
-## Estrutura Relevante
+- controllers
+- services
+- repositories
+- routes
+- integracao funcional completa entre os dominios
+
+## Arquitetura Relevante Hoje
 
 ```text
-feature/consulta-slurkronox
-|-- .github/
-|   `-- PULL_REQUEST_TEMPLATE.md
-|-- docs/
-|   |-- README.md
-|   |-- WORKLOG.md
-|   |-- arquitetura-da-branch.md
-|   |-- caps-flow.md
-|   |-- checklist-equipe.md
-|   |-- checklist-final-consulta.md
-|   |-- das.md
-|   |-- entrega-consulta.md
-|   |-- guia-de-contribuicao.md
-|   |-- modelagem-e-requisitos.md
-|   |-- modelo-de-dados.md
-|   `-- pull-request-consulta.md
-|-- src/
-|   |-- app.ts
-|   |-- config/
-|   |   `-- env.ts
-|   |-- core/
-|   |   |-- errors/
-|   |   |   `-- app-error.ts
-|   |   `-- middlewares/
-|   |       |-- error-handler.ts
-|   |       `-- not-found-handler.ts
-|   |-- db/
-|   |   |-- index.ts
-|   |   `-- schema/
-|   |       |-- consultas.ts
-|   |       `-- index.ts
-|   |-- modules/
-|   |   |-- consultas/
-|   |   |-- pacientes/
-|   |   |-- prontuarios/
-|   |   `-- usuarios/
-|   `-- server.ts
-|-- .env.example
-|-- drizzle.config.ts
-|-- package.json
-`-- tsconfig.json
+src/
+|-- app.ts
+|-- server.ts
+|-- config/
+|   `-- env.ts
+|-- core/
+|   |-- errors/
+|   |   `-- app-error.ts
+|   `-- middlewares/
+|       |-- error-handler.ts
+|       `-- not-found-handler.ts
+|-- db/
+|   |-- index.ts
+|   `-- schema/
+|       |-- consultas.ts
+|       |-- pacientes.ts
+|       |-- prontuario.ts
+|       |-- relations.ts
+|       |-- usuarios.ts
+|       `-- index.ts
+`-- modules/
+    |-- consultas/
+    |-- pacientes/
+    |-- prontuarios/
+    `-- usuarios/
 ```
 
-## Decisoes de Arquitetura
+## Decisoes Tecnicas Consolidadas
 
-- a base do projeto foi organizada antes de qualquer ampliacao funcional
-- o bootstrap do servidor foi mantido pequeno para facilitar validacao e revisao
-- a aplicacao Express foi separada de `src/server.ts` para reduzir acoplamento
-- a configuracao de ambiente foi centralizada em `src/config/env.ts`
+- a aplicacao Express foi separada do bootstrap HTTP para facilitar manutencao
+- o ambiente foi centralizado em um unico arquivo tipado
 - a conexao com banco foi centralizada em `src/db/index.ts`
-- `Consulta` permaneceu como a unica entidade de dominio implementada
-- os demais modulos ficaram apenas preparados estruturalmente
+- a pasta `src/modules/` ja prepara a evolucao por dominio sem misturar camadas
+- a modelagem do banco foi consolidada em MySQL
+- a integridade referencial passou a ser garantida no banco, nao apenas no codigo
 
-## Decisoes de Modelagem
+## Pontos de Atencao
 
-- `Consulta` foi relacionada a `Paciente` e `Usuario` por identificadores
-- o controle de status foi feito com `mysqlEnum`
-- a regra de conflito de horario por medico foi refletida com `uniqueIndex`
+- a validacao do banco local depende da configuracao de ambiente de cada desenvolvedor
+- o projeto ainda nao possui camadas HTTP/servico/repositorio implementadas
+- qualquer alteracao em schema precisa manter sincronismo com migration, README e WORKLOG
 
-## Limites Deliberados
+## Leitura Correta do Estado Atual
 
-- `Paciente`, `Usuario` e `Prontuario` nao receberam schema funcional nesta branch
-- nao foram implementados controllers, services, repositories ou routes
-- nao foram geradas migracoes
-- o alvo de integracao continua sendo `develop`, nunca `main`
+Hoje o projeto nao esta limitado a `Consulta` isolada. O que existe e:
 
-## Beneficios da Organizacao Atual
+- um backend base executavel
+- quatro schemas modelados
+- relacoes reais entre os principais dominios clinicos
+- uma base comum pronta para evolucao funcional
 
-- repositorio executavel e validavel localmente
-- base clara para os demais integrantes continuarem
-- menor ambiguidade entre escopo funcional e estrutura compartilhada
-- PR mais facil de revisar tecnicamente
+Isso significa que a documentacao precisa mostrar ao mesmo tempo:
+
+- o que ja esta implementado
+- o que foi validado de verdade
+- o que ainda falta para consolidacao completa do backend

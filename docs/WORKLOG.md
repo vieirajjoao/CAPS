@@ -1,6 +1,7 @@
 # Registro de Atividades
 
 ## 2026-04-02 16:00
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta
 - Branch: feature/consulta-slurkronox
@@ -12,6 +13,7 @@
 - Status do push: ok
 
 ## 2026-04-02 16:05
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta
 - Branch: feature/consulta-slurkronox
@@ -23,6 +25,7 @@
 - Status do push: ok
 
 ## 2026-04-02 16:20
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e organizacao documental da branch
 - Branch: feature/consulta-slurkronox
@@ -34,6 +37,7 @@
 - Status do push: ok
 
 ## 2026-04-02 16:35
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e finalizacao documental da branch
 - Branch: feature/consulta-slurkronox
@@ -45,6 +49,7 @@
 - Status do push: ok
 
 ## 2026-04-02 16:50
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e profissionalizacao da base do projeto
 - Branch: feature/consulta-slurkronox
@@ -56,6 +61,7 @@
 - Status do push: ok
 
 ## 2026-04-09 14:36
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e refinamento da arquitetura do servidor
 - Branch: feature/consulta-slurkronox
@@ -67,6 +73,7 @@
 - Status do push: ok
 
 ## 2026-04-09 14:50
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e atualizacao da branch com a base mais recente de develop
 - Branch: feature/consulta-slurkronox
@@ -78,6 +85,7 @@
 - Status do push: ok
 
 ## 2026-04-09 15:10
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e sincronizacao final com a base atual de develop
 - Branch: feature/consulta-slurkronox
@@ -89,6 +97,7 @@
 - Status do push: ok
 
 ## 2026-04-09 15:13
+
 - Integrante: Savio de Brito Oliveira Filho
 - Responsabilidade: Consulta e reforco documental de escopo
 - Branch: feature/consulta-slurkronox
@@ -109,6 +118,30 @@
 - Linhas removidas: 16
 - Descricao objetiva: alinhamento da configuracao de ambiente com o Drizzle, geracao da migration inicial da entidade Consulta e adicao de comentarios curtos e naturais nos arquivos de codigo pra facilitar leitura, manutencao e entendimento da branch.
 - Commit: b0a13f0 - refactor(base): align drizzle setup and clarify core files
+- Status do push: ok
+
+## 2026-04-23 14:27
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: refinamento documental do projeto e sincronizacao de conteudo com a wiki
+- Branch: feature/docs-wiki-refino
+- Arquivos alterados: .github/PULL_REQUEST_TEMPLATE.md, README.md, docs/README.md, docs/arquitetura-da-branch.md, docs/caps-flow.md, docs/checklist-equipe.md, docs/checklist-final-consulta.md, docs/das.md, docs/entrega-consulta.md, docs/guia-de-contribuicao.md, docs/modelagem-e-requisitos.md, docs/modelo-de-dados.md, docs/pull-request-consulta.md
+- Linhas adicionadas: 424
+- Linhas removidas: 275
+- Descricao objetiva: refinamento e padronizacao da documentacao do repositorio para refletir o estado real da base, esclarecer riscos tecnicos, melhorar navegacao, consolidar o fluxo correto de contribuicao e alinhar o conteudo equivalente da wiki.
+- Commit: 885a0fe - docs(project): refine repository documentation and contribution guides
+- Status do push: ok
+
+## 2026-04-23 14:31
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: ajuste minimo de script para validacao completa da base
+- Branch: feature/docs-wiki-refino
+- Arquivos alterados: package.json
+- Linhas adicionadas: 1
+- Linhas removidas: 1
+- Descricao objetiva: correcao do script `npm run start` para apontar para a build compilada em `dist/server.js`, mantendo o comando coerente com o `outDir` do TypeScript e com a documentacao do projeto.
+- Commit: f528ced - fix(scripts): point start command to compiled server
 - Status do push: ok
 
 ## 2026-04-23 15:01

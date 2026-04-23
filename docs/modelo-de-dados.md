@@ -4,6 +4,12 @@
 
 Conectar a modelagem conceitual do projeto com o que esta efetivamente implementado no banco via Drizzle.
 
+## Leitura Correta deste Documento
+
+- este documento descreve o que existe no codigo hoje
+- quando houver divergencia entre expectativa da disciplina e implementacao atual, o documento prioriza o estado real do repositorio
+- schema, migration e banco devem ser interpretados em conjunto
+
 ## Estado Atual dos Schemas
 
 ### Consulta
@@ -21,7 +27,9 @@ Arquivo: `src/db/schema/consultas.ts`
 | `criado_em` | `timestamp` | sim | default `now()` |
 | `atualizado_em` | `timestamp` | sim | default `now()` com atualizacao automatica |
 
-## Indices e Restricoes
+Dialeto atual: `mysql-core`
+
+#### Indices e Restricoes
 
 - indice por `id_paciente`
 - indice por `id_usuario`
@@ -45,6 +53,13 @@ Arquivo: `src/db/schema/pacientes.ts`
 | `hf_paciente` | `text` | nao | historico familiar |
 | `hs_paciente` | `text` | nao | historico social |
 
+Dialeto atual: `mysql-core`
+
+#### Indices
+
+- indice por `nome_paciente`
+- indice por `telefone_paciente`
+
 ### Usuario
 
 Arquivo: `src/db/schema/usuarios.ts`
@@ -57,6 +72,13 @@ Arquivo: `src/db/schema/usuarios.ts`
 | `senha_usuario` | `varchar(255)` | sim | senha |
 | `perfil` | `enum` | sim | `admin`, `medico`, `atendente` |
 | `crm_usuario` | `varchar(20)` | nao | CRM quando aplicavel |
+
+Dialeto atual: `mysql-core`
+
+#### Indices e Restricoes
+
+- `uniqueIndex` em `email_usuario`
+- indice por `perfil`
 
 ### Prontuario
 
@@ -71,6 +93,15 @@ Arquivo: `src/db/schema/prontuario.ts`
 | `criado_em` | `timestamp` | sim | default `now()` |
 | `atualizado_em` | `timestamp` | sim | default `now()` com atualizacao automatica |
 
+Dialeto atual: `mysql-core`
+
+#### Indices e Restricoes
+
+- indice por `id_paciente`
+- indice por `id_usuario`
+- foreign key para `pacientes.id_paciente`
+- foreign key para `usuarios.id_usuario`
+
 ## Relacionamentos Atuais
 
 - `consultas.id_paciente -> pacientes.id_paciente`
@@ -83,11 +114,42 @@ As constraints usam:
 - `ON DELETE RESTRICT`
 - `ON UPDATE CASCADE`
 
+## Relations do Drizzle
+
+Arquivo: `src/db/schema/relations.ts`
+
+O projeto agora expoe relacoes tipadas para:
+
+- `usuarios -> consultas`
+- `usuarios -> prontuario`
+- `pacientes -> consultas`
+- `pacientes -> prontuario`
+- `consultas -> paciente`
+- `consultas -> usuario`
+- `prontuario -> paciente`
+- `prontuario -> usuario`
+
 ## Migrations
 
 Arquivos atuais:
 
 - `drizzle/0000_smart_tenebrous.sql`
 - `drizzle/0001_cold_nuke.sql`
+- `drizzle/meta/0000_snapshot.json`
+- `drizzle/meta/0001_snapshot.json`
+- `drizzle/meta/_journal.json`
 
-O estado atual do banco ja suporta as tabelas principais e as chaves estrangeiras entre `consultas`, `prontuario`, `pacientes` e `usuarios`.
+No estado atual:
+
+- `0000` cria a tabela `consultas`
+- `0001` cria `pacientes`, `usuarios` e `prontuario`, ajusta `consultas.id_usuario` e adiciona as foreign keys reais
+
+## Validacao de Integridade
+
+A integridade referencial foi validada com:
+
+- `npm run db:generate`
+- `npm run db:migrate`
+- consulta em `information_schema.KEY_COLUMN_USAGE`
+- inserts validos em transacao
+- inserts invalidos bloqueados com `ER_NO_REFERENCED_ROW_2`

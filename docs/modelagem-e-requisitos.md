@@ -88,6 +88,17 @@ O CAPS visa automatizar a gestao de uma clinica medica por meio de uma API backe
 | Prontuario | Felipe Moreira Barcelos |
 | Revisao geral | Murilo |
 
-## Escopo Desta Branch
+## Estado Atual de Cobertura
 
-Esta branch concentra a entrega do schema `Consulta` e a profissionalizacao da base do repositorio para permitir validacao, build, execucao local e PR organizado, sem implementar o dominio funcional dos outros integrantes.
+No codigo atual:
+
+- `Consulta`, `Paciente`, `Usuario` e `Prontuario` possuem schema em MySQL no Drizzle
+- `Consulta` e `Prontuario` ja possuem foreign keys reais para `Paciente` e `Usuario`
+- o projeto possui migrations para `consultas` e para consolidacao das tabelas restantes com FKs
+- a estrutura de modulos existe para os quatro dominios, mas ainda sem implementacao funcional completa
+
+## Observacoes Importantes
+
+- a modelagem conceitual do projeto continua valida para os quatro dominios
+- a implementacao tecnica do banco ja possui integridade referencial entre os principais dominios clinicos
+- toda documentacao deve refletir o estado real do codigo, das migrations e do banco validado

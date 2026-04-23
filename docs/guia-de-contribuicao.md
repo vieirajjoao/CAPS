@@ -14,6 +14,13 @@ Padronizar a forma de contribuir no CAPS para reduzir conflito de branch, codigo
 6. enviar a branch para o remoto
 7. abrir PR para `develop`
 
+## Regras Criticas
+
+- nunca fazer push direto em `main`
+- nunca fazer push direto em `develop`
+- toda tarefa deve sair de `develop` para uma branch `feature/*`
+- toda integracao deve ocorrer por Pull Request
+
 ## Convencoes de Commit
 
 - `feat(...)`: novas funcionalidades
@@ -44,6 +51,17 @@ Antes do push:
 - revisar `git diff`
 - validar build e typecheck quando aplicavel
 - confirmar que o README e o WORKLOG refletem o estado real da branch
+- verificar se a wiki precisa ser atualizada junto com a documentacao do repositorio
+
+## Padroes para Pull Request
+
+Todo PR deve:
+
+- ter titulo objetivo e semantico
+- explicar claramente escopo, impacto tecnico e validacoes executadas
+- apontar o destino correto, normalmente `develop`
+- evitar misturar entregas de dominios diferentes
+- incluir pelo menos 2 comentarios uteis quando essa regra estiver ativa para o time
 
 ## Registro Obrigatorio
 
@@ -58,3 +76,11 @@ Toda alteracao relevante deve ser registrada em `docs/WORKLOG.md` com:
 - descricao objetiva
 - commit
 - status do push
+
+## Sincronizacao entre Docs e Wiki
+
+Quando uma mudanca afetar contexto, arquitetura, fluxo de contribuicao, modelagem ou estado da implementacao:
+
+- atualizar os documentos do repositorio
+- revisar as paginas equivalentes da wiki
+- evitar divergencia entre os dois lados
