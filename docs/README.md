@@ -55,7 +55,7 @@ O objetivo desta pasta e manter o repositorio compreensivel por leitura, alinhad
 - `guia-de-contribuicao.md`: define como contribuir sem misturar escopos
 - `caps-flow.md`: resume o fluxo de branches, commits e PRs
 - `checklist-equipe.md`: ajuda a revisar entregas por integrante
-- `entrega-consulta.md`: detalha o estado atual da entidade `Consulta`
+- `entrega-consulta.md`: detalha o estado atual da entidade `Consulta` e do modulo HTTP correspondente
 - `pull-request-consulta.md`: serve como roteiro para PRs tecnicos do projeto
 - `checklist-final-consulta.md`: funciona como checklist de revisao da modelagem de `Consulta`
 - `WORKLOG.md`: e o registro tecnico oficial das alteracoes

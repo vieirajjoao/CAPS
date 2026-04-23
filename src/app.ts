@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from "express";
 import { errorHandler } from "./core/middlewares/error-handler";
 import { notFoundHandler } from "./core/middlewares/not-found-handler";
+import { consultasRouter } from "./modules/consultas/routes/consultas.routes";
 
 export const app = express();
 
@@ -22,6 +23,9 @@ app.get("/health", (_request: Request, response: Response) => {
     status: "ok",
   });
 });
+
+// Ja deixa o dominio de consulta plugado no app principal.
+app.use("/consultas", consultasRouter);
 
 // Primeiro trata rota faltando, depois cai no handler global de erro.
 app.use(notFoundHandler);
