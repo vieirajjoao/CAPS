@@ -167,3 +167,15 @@
 - Descricao objetiva: integracao da documentacao refinada que entrou em `develop`, eliminacao de referencias desatualizadas a branch antiga e consolidacao dos documentos para refletir o estado real do banco, das migrations, das FKs e do fluxo atual do repositorio.
 - Commit: 4e559bc - merge(develop): sync documentation base into foreign key branch
 - Status do push: ok
+
+## 2026-04-23 15:39
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: modulo funcional de Consulta
+- Branch: feature/consulta-module
+- Arquivos alterados: README.md, docs/README.md, docs/entrega-consulta.md, src/app.ts, src/modules/consultas/consultas.schemas.ts, src/modules/consultas/controllers/consultas.controller.ts, src/modules/consultas/repositories/consultas.repository.ts, src/modules/consultas/routes/consultas.routes.ts, src/modules/consultas/services/consultas.service.ts
+- Linhas adicionadas: 322
+- Linhas removidas: 9
+- Descricao objetiva: implementacao do modulo de Consulta com schema Zod, repository, service, controller, rotas Express, integracao no app principal, validacao de paciente, medico e conflito de horario, alem de atualizacao da documentacao da entrega para refletir o fluxo HTTP real.
+- Commit: 7486b02 - feat(consulta): implement consulta module with validation and scheduling rules
+- Status do push: ok
