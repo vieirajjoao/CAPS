@@ -24,7 +24,8 @@ Hoje o projeto contem:
 - migrations versionadas em `drizzle/`
 - foreign keys reais entre `consultas` e `pacientes`/`usuarios`
 - foreign keys reais entre `prontuario` e `pacientes`/`usuarios`
-- estrutura modular pronta para controllers, services, repositories e routes
+- modulo funcional de `Consulta` com routes, controller, service e repository
+- estrutura modular pronta para evolucao dos outros dominios
 
 ## Stack
 
@@ -139,6 +140,11 @@ CAPS/
 |   |       `-- index.ts
 |   |-- modules/
 |   |   |-- consultas/
+|   |   |   |-- consultas.schemas.ts
+|   |   |   |-- controllers/
+|   |   |   |-- repositories/
+|   |   |   |-- routes/
+|   |   |   `-- services/
 |   |   |-- pacientes/
 |   |   |-- prontuarios/
 |   |   `-- usuarios/
@@ -177,6 +183,10 @@ Quando o servidor sobe corretamente:
 
 - `GET /` retorna `200`
 - `GET /health` retorna `200`
+- `GET /consultas` lista consultas e aceita filtros simples
+- `POST /consultas` cria consulta com validacao de paciente, medico e horario
+- `GET /consultas/:id` busca uma consulta especifica
+- `PATCH /consultas/:id/status` atualiza o status do atendimento
 - rotas inexistentes retornam `404` em JSON
 
 ## Documentacao

@@ -11,6 +11,12 @@ A entidade `Consulta` representa o atendimento agendado ou realizado entre pacie
 - `src/db/schema/usuarios.ts`
 - `src/db/schema/relations.ts`
 - `src/db/schema/index.ts`
+- `src/modules/consultas/consultas.schemas.ts`
+- `src/modules/consultas/repositories/consultas.repository.ts`
+- `src/modules/consultas/services/consultas.service.ts`
+- `src/modules/consultas/controllers/consultas.controller.ts`
+- `src/modules/consultas/routes/consultas.routes.ts`
+- `src/app.ts`
 - `drizzle/0000_smart_tenebrous.sql`
 - `drizzle/0001_cold_nuke.sql`
 - `docs/modelo-de-dados.md`
@@ -49,12 +55,29 @@ A configuracao usa:
 
 ## Situacao Atual dentro do Projeto
 
-Hoje `Consulta` e o schema mais maduro da base:
+Hoje `Consulta` e o dominio mais maduro da base:
 
 - usa `mysql-core`
 - possui migration inicial e migration de consolidacao das FKs
 - esta exportado no indice central de schemas
 - possui relations tipadas com `Paciente` e `Usuario`
+- possui schema Zod para entrada HTTP
+- possui repository para leitura e escrita no banco
+- possui service com validacao de paciente, medico e conflito de horario
+- possui controller e rotas Express integradas em `app.ts`
+
+## Endpoints Implementados
+
+- `GET /consultas`
+- `GET /consultas/:id`
+- `POST /consultas`
+- `PATCH /consultas/:id/status`
+
+Os filtros atuais de listagem sao:
+
+- `id_paciente`
+- `id_usuario`
+- `status`
 
 ## Validacao Realizada
 
@@ -65,9 +88,10 @@ Hoje `Consulta` e o schema mais maduro da base:
 - execucao de `npm run db:migrate`
 - consulta em `information_schema.KEY_COLUMN_USAGE`
 - teste transacional com insert valido e invalido para validar as FKs
+- smoke test HTTP de criacao, leitura, conflito de horario, validacao de perfil, validacao de paciente e atualizacao de status
 - revisao documental e registro em `docs/WORKLOG.md`
 
 ## Limites Atuais
 
-- a camada de dominio ainda nao tem service, repository, controller ou route implementados
-- a entrega atual garante integridade estrutural da modelagem, nao o fluxo funcional completo da clinica
+- os dominios de `Paciente`, `Usuario` e `Prontuario` ainda nao possuem camada funcional equivalente
+- o modulo de `Consulta` cobre o fluxo basico de agenda, mas ainda nao implementa cancelamento com remarcacao ou regras avancadas de disponibilidade
