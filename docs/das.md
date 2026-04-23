@@ -23,7 +23,11 @@ O CAPS adota uma arquitetura de monolito modular em camadas para manter o projet
 ## Estrutura Base
 
 ```text
+drizzle/
+|-- 0000_smart_tenebrous.sql
+`-- 0001_cold_nuke.sql
 src/
+|-- app.ts
 |-- config/
 |   `-- env.ts
 |-- core/
@@ -33,6 +37,10 @@ src/
 |   |-- index.ts
 |   `-- schema/
 |       |-- consultas.ts
+|       |-- pacientes.ts
+|       |-- prontuario.ts
+|       |-- relations.ts
+|       |-- usuarios.ts
 |       `-- index.ts
 |-- modules/
 |   |-- consultas/
@@ -48,18 +56,26 @@ src/
 - `core`: erros e middlewares reutilizaveis
 - `db`: conexao com banco e schemas Drizzle
 - `modules`: organizacao por dominio e responsabilidade funcional
+- `app.ts`: composicao da aplicacao Express
 - `server.ts`: bootstrap HTTP da aplicacao
 
-## Decisoes Tecnicas Desta Branch
+## Decisoes Tecnicas Atuais
 
 - o bootstrap do servidor foi mantido minimo para garantir validacao rapida
 - a conexao Drizzle foi centralizada em `src/db/index.ts`
-- o schema de `Consulta` permanece isolado para respeitar o escopo do integrante responsavel
-- os modulos de outros dominios foram preparados apenas com estrutura, sem implementacao de negocio
+- os schemas do banco foram alinhados ao dialeto MySQL
+- as relacoes entre tabelas passaram a usar foreign keys reais
+- `relations.ts` foi adicionado para consultas relacionais tipadas no Drizzle
+
+## Estado Atual da Persistencia
+
+- `consultas` referencia `pacientes` e `usuarios`
+- `prontuario` referencia `pacientes` e `usuarios`
+- a migration `0001_cold_nuke.sql` consolida as tabelas faltantes e as FKs
+- a integridade foi validada em MySQL com inserts validos e invalidos
 
 ## Riscos e Limites Atuais
 
 - ainda nao existem controllers, services, repositories e routes implementados
-- so o schema de `Consulta` foi modelado nesta branch
-- migracoes ainda nao foram geradas
-- a integracao com banco depende da configuracao local do `.env`
+- a validacao do banco local depende da porta configurada no ambiente do desenvolvedor
+- o `README` e o `WORKLOG` precisam acompanhar qualquer mudanca futura de schema ou migration

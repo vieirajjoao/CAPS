@@ -1,12 +1,18 @@
 import { datetime, index, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
+import { pacientes } from "./pacientes";
+import { usuarios } from "./usuarios";
 
 export const consultas = mysqlTable(
   "consultas",
   {
     // Bloco principal da consulta: ids, horario e status do atendimento.
     id_consulta: varchar("id_consulta", { length: 36 }).primaryKey(),
-    id_paciente: varchar("id_paciente", { length: 36 }).notNull(),
-    id_usuario: varchar("id_usuario", { length: 14 }).notNull(),
+    id_paciente: varchar("id_paciente", { length: 36 })
+      .notNull()
+      .references(() => pacientes.id_paciente, { onDelete: "restrict", onUpdate: "cascade" }),
+    id_usuario: varchar("id_usuario", { length: 11 })
+      .notNull()
+      .references(() => usuarios.id_usuario, { onDelete: "restrict", onUpdate: "cascade" }),
     data_hora: datetime("data_hora", { mode: "date" }).notNull(),
     status: mysqlEnum("status", ["agendada", "concluida", "cancelada"]).notNull().default("agendada"),
     obs: text("obs"),

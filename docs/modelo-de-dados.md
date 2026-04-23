@@ -4,7 +4,7 @@
 
 Conectar a modelagem conceitual do projeto com o que esta efetivamente implementado no banco via Drizzle.
 
-## Schema Implementado Nesta Branch
+## Estado Atual dos Schemas
 
 ### Consulta
 
@@ -13,8 +13,8 @@ Arquivo: `src/db/schema/consultas.ts`
 | Campo | Tipo | Obrigatorio | Observacao |
 | --- | --- | --- | --- |
 | `id_consulta` | `varchar(36)` | sim | chave primaria |
-| `id_paciente` | `varchar(36)` | sim | referencia logica ao paciente |
-| `id_usuario` | `varchar(14)` | sim | referencia logica ao profissional responsavel |
+| `id_paciente` | `varchar(36)` | sim | FK para `pacientes.id_paciente` |
+| `id_usuario` | `varchar(11)` | sim | FK para `usuarios.id_usuario` |
 | `data_hora` | `datetime` | sim | data e hora da consulta |
 | `status` | `enum` | sim | `agendada`, `concluida`, `cancelada` |
 | `obs` | `text` | nao | observacoes livres |
@@ -27,19 +27,67 @@ Arquivo: `src/db/schema/consultas.ts`
 - indice por `id_usuario`
 - indice por `data_hora`
 - `uniqueIndex` em `id_usuario + data_hora`
+- foreign key para `pacientes.id_paciente`
+- foreign key para `usuarios.id_usuario`
 
-## Relacionamentos Mantidos por Identificador
+### Paciente
 
-Nesta branch, `Consulta` se relaciona logicamente com:
+Arquivo: `src/db/schema/pacientes.ts`
 
-- `Paciente` por `id_paciente`
-- `Usuario` por `id_usuario`
+| Campo | Tipo | Obrigatorio | Observacao |
+| --- | --- | --- | --- |
+| `id_paciente` | `varchar(36)` | sim | chave primaria |
+| `nome_paciente` | `varchar(255)` | sim | nome do paciente |
+| `data_nascimento_paciente` | `date` | sim | data de nascimento |
+| `endereco_paciente` | `varchar(255)` | sim | endereco |
+| `telefone_paciente` | `varchar(11)` | sim | telefone |
+| `convenio_medico_paciente` | `varchar(40)` | sim | convenio |
+| `hf_paciente` | `text` | nao | historico familiar |
+| `hs_paciente` | `text` | nao | historico social |
 
-As tabelas desses dominios nao foram implementadas aqui para preservar o escopo do time.
+### Usuario
 
-## Pendencias Intencionais
+Arquivo: `src/db/schema/usuarios.ts`
 
-- schema de `Usuario`
-- schema de `Paciente`
-- schema de `Prontuario`
-- definicao final de chaves estrangeiras reais entre tabelas
+| Campo | Tipo | Obrigatorio | Observacao |
+| --- | --- | --- | --- |
+| `id_usuario` | `varchar(11)` | sim | chave primaria |
+| `nome_usuario` | `varchar(255)` | sim | nome do usuario |
+| `email_usuario` | `varchar(320)` | sim | unico |
+| `senha_usuario` | `varchar(255)` | sim | senha |
+| `perfil` | `enum` | sim | `admin`, `medico`, `atendente` |
+| `crm_usuario` | `varchar(20)` | nao | CRM quando aplicavel |
+
+### Prontuario
+
+Arquivo: `src/db/schema/prontuario.ts`
+
+| Campo | Tipo | Obrigatorio | Observacao |
+| --- | --- | --- | --- |
+| `id_prontuario` | `int` | sim | chave primaria auto incremento |
+| `id_paciente` | `varchar(36)` | sim | FK para `pacientes.id_paciente` |
+| `id_usuario` | `varchar(11)` | sim | FK para `usuarios.id_usuario` |
+| `anamnese` | `text` | sim | conteudo clinico |
+| `criado_em` | `timestamp` | sim | default `now()` |
+| `atualizado_em` | `timestamp` | sim | default `now()` com atualizacao automatica |
+
+## Relacionamentos Atuais
+
+- `consultas.id_paciente -> pacientes.id_paciente`
+- `consultas.id_usuario -> usuarios.id_usuario`
+- `prontuario.id_paciente -> pacientes.id_paciente`
+- `prontuario.id_usuario -> usuarios.id_usuario`
+
+As constraints usam:
+
+- `ON DELETE RESTRICT`
+- `ON UPDATE CASCADE`
+
+## Migrations
+
+Arquivos atuais:
+
+- `drizzle/0000_smart_tenebrous.sql`
+- `drizzle/0001_cold_nuke.sql`
+
+O estado atual do banco ja suporta as tabelas principais e as chaves estrangeiras entre `consultas`, `prontuario`, `pacientes` e `usuarios`.

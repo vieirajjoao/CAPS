@@ -4,21 +4,22 @@ API academica para gestao clinica com Node.js, Express, MySQL, Drizzle ORM e Typ
 
 ## Objetivo
 
-O projeto CAPS organiza o backend de uma clinica medica em torno de quatro dominios principais:
+O projeto organiza o backend de uma clinica medica em torno de quatro dominios:
 
 - usuarios
 - pacientes
 - consultas
-- prontuarios
+- prontuario
 
-Nesta branch, a implementacao de dominio entregue continua restrita a `Consulta`, mas a base do repositorio foi organizada para ficar executavel, validavel e pronta para evolucao em equipe.
+## Estado Atual do Banco
 
-## Estado Atual da Branch
+O projeto agora possui:
 
-- Branch de trabalho: `feature/consulta-slurkronox`
-- Responsavel: `Savio de Brito Oliveira Filho`
-- Escopo funcional entregue: `schema Consulta`
-- Escopo estrutural adicional: bootstrap do projeto, configuracao TypeScript, ambiente, conexao Drizzle e organizacao documental
+- 4 tabelas modeladas no Drizzle com dialeto MySQL
+- migrations versionadas em `drizzle/`
+- foreign keys reais entre `consultas` e `pacientes`/`usuarios`
+- foreign keys reais entre `prontuario` e `pacientes`/`usuarios`
+- integridade validada em banco MySQL local com inserts validos e invalidos
 
 ## Stack
 
@@ -33,80 +34,46 @@ Nesta branch, a implementacao de dominio entregue continua restrita a `Consulta`
 
 1. Copie `.env.example` para `.env`.
 2. Ajuste as variaveis de ambiente do banco.
-3. Instale as dependencias:
-
-```bash
-npm install
-```
-
-4. Valide os tipos:
-
-```bash
-npm run typecheck
-```
-
-5. Gere a build:
-
-```bash
-npm run build
-```
-
-6. Rode em desenvolvimento:
-
-```bash
-npm run dev
-```
+3. Instale as dependencias com `npm install`.
+4. Valide a base com `npm run check`.
+5. Gere migrations com `npm run db:generate`, quando necessario.
+6. Aplique migrations com `npm run db:migrate`.
+7. Rode em desenvolvimento com `npm run dev`.
 
 ## Scripts Disponiveis
 
 - `npm run dev`: sobe o servidor em modo de desenvolvimento com `tsx`
 - `npm run build`: compila o projeto para `dist/`
 - `npm run check`: executa `typecheck` e `build` em sequencia
-- `npm run start`: executa a build compilada
+- `npm run start`: executa o script de inicializacao da API
 - `npm run typecheck`: valida a tipagem sem gerar artefatos
 - `npm run db:generate`: gera arquivos do Drizzle Kit
 - `npm run db:migrate`: executa migracoes do Drizzle Kit
 - `npm run db:studio`: abre o Drizzle Studio
 
-## Estrutura do Projeto
+## Estrutura Relevante
 
 ```text
 CAPS/
-|-- .github/
-|   `-- PULL_REQUEST_TEMPLATE.md
 |-- docs/
-|   |-- README.md
-|   |-- WORKLOG.md
-|   |-- arquitetura-da-branch.md
-|   |-- caps-flow.md
-|   |-- checklist-equipe.md
-|   |-- checklist-final-consulta.md
-|   |-- das.md
-|   |-- entrega-consulta.md
-|   |-- guia-de-contribuicao.md
-|   |-- modelagem-e-requisitos.md
-|   |-- modelo-de-dados.md
-|   `-- pull-request-consulta.md
+|-- drizzle/
+|   |-- 0000_smart_tenebrous.sql
+|   `-- 0001_cold_nuke.sql
 |-- src/
 |   |-- app.ts
 |   |-- config/
 |   |   `-- env.ts
 |   |-- core/
-|   |   |-- errors/
-|   |   |   `-- app-error.ts
-|   |   `-- middlewares/
-|   |       |-- error-handler.ts
-|   |       `-- not-found-handler.ts
 |   |-- db/
 |   |   |-- index.ts
 |   |   `-- schema/
 |   |       |-- consultas.ts
+|   |       |-- pacientes.ts
+|   |       |-- prontuario.ts
+|   |       |-- relations.ts
+|   |       |-- usuarios.ts
 |   |       `-- index.ts
 |   |-- modules/
-|   |   |-- consultas/
-|   |   |-- pacientes/
-|   |   |-- prontuarios/
-|   |   `-- usuarios/
 |   `-- server.ts
 |-- .env.example
 |-- drizzle.config.ts
@@ -114,28 +81,19 @@ CAPS/
 `-- tsconfig.json
 ```
 
-## Entrega Tecnica Desta Branch
+## Integridade Referencial
 
-O schema de `Consulta` foi implementado em [src/db/schema/consultas.ts](src/db/schema/consultas.ts) com:
+As chaves estrangeiras implementadas hoje sao:
 
-- identificador unico da consulta
-- referencia ao paciente por `id_paciente`
-- referencia ao usuario responsavel por `id_usuario`
-- data e hora do atendimento
-- status controlado por enum
-- observacoes livres
-- timestamps de criacao e atualizacao
-- `uniqueIndex` para impedir dois agendamentos do mesmo medico no mesmo horario
+- `consultas.id_paciente -> pacientes.id_paciente`
+- `consultas.id_usuario -> usuarios.id_usuario`
+- `prontuario.id_paciente -> pacientes.id_paciente`
+- `prontuario.id_usuario -> usuarios.id_usuario`
 
-Os demais dominios nao foram implementados nesta branch para evitar invasao do escopo de outros integrantes.
+As constraints foram configuradas com:
 
-## Melhorias Estruturais Recentes
-
-- separacao entre `app` e `server` para facilitar testes e bootstrap
-- middleware central para tratamento de erro
-- middleware de `404` para rotas inexistentes
-- encerramento gracioso do servidor em `SIGINT` e `SIGTERM`
-- script `npm run check` para validacao rapida da branch
+- `ON DELETE RESTRICT`
+- `ON UPDATE CASCADE`
 
 ## Documentacao
 
@@ -143,20 +101,14 @@ Os demais dominios nao foram implementados nesta branch para evitar invasao do e
 - [docs/modelagem-e-requisitos.md](docs/modelagem-e-requisitos.md)
 - [docs/das.md](docs/das.md)
 - [docs/modelo-de-dados.md](docs/modelo-de-dados.md)
-- [docs/guia-de-contribuicao.md](docs/guia-de-contribuicao.md)
-- [docs/arquitetura-da-branch.md](docs/arquitetura-da-branch.md)
-- [docs/caps-flow.md](docs/caps-flow.md)
-- [docs/checklist-equipe.md](docs/checklist-equipe.md)
-- [docs/checklist-final-consulta.md](docs/checklist-final-consulta.md)
 - [docs/entrega-consulta.md](docs/entrega-consulta.md)
-- [docs/pull-request-consulta.md](docs/pull-request-consulta.md)
 - [docs/WORKLOG.md](docs/WORKLOG.md)
 
 ## Fluxo de Branches
 
 1. atualizar `develop`
-2. criar ou usar a branch `feature/*` correta
-3. trabalhar apenas no proprio escopo
-4. revisar o diff
+2. criar uma branch `feature/*` para a tarefa
+3. revisar o diff antes de commitar
+4. validar o que foi alterado
 5. registrar o trabalho em `docs/WORKLOG.md`
 6. abrir Pull Request para `develop`

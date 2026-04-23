@@ -7,7 +7,11 @@ A entidade `Consulta` representa o atendimento agendado ou realizado entre um pa
 ## Arquivos Principais da Entrega
 
 - `src/db/schema/consultas.ts`
+- `src/db/schema/pacientes.ts`
+- `src/db/schema/usuarios.ts`
 - `src/db/schema/index.ts`
+- `src/db/schema/relations.ts`
+- `drizzle/0001_cold_nuke.sql`
 - `docs/modelo-de-dados.md`
 - `docs/checklist-final-consulta.md`
 - `docs/pull-request-consulta.md`
@@ -29,30 +33,34 @@ A entidade `Consulta` representa o atendimento agendado ou realizado entre um pa
 - toda consulta exige paciente e profissional responsavel
 - ha indices para busca por paciente, usuario e data
 - existe `uniqueIndex` em `id_usuario + data_hora`
+- existe foreign key para `pacientes.id_paciente`
+- existe foreign key para `usuarios.id_usuario`
 
-## Relacionamentos Mantidos por Identificador
+## Relacionamentos Implementados
 
-Nesta entrega, os relacionamentos foram mantidos por:
+Nesta entrega, os relacionamentos deixaram de ser apenas logicos e passaram a ser garantidos no banco:
 
-- `id_paciente`
-- `id_usuario`
+- `consultas.id_paciente -> pacientes.id_paciente`
+- `consultas.id_usuario -> usuarios.id_usuario`
 
-Essa decisao evita implementar `Paciente` e `Usuario` nesta branch e preserva o escopo dos outros integrantes.
+A configuracao usa:
+
+- `ON DELETE RESTRICT`
+- `ON UPDATE CASCADE`
 
 ## Validacao Realizada
 
-- validacao estrutural da arquitetura base da branch
-- leitura e revisao do diff contra `develop`
+- execucao de `npm run typecheck`
+- execucao de `npm run build`
+- execucao de `npm run db:generate`
+- execucao de `npm run db:migrate` com MySQL local
+- consulta em `information_schema.KEY_COLUMN_USAGE`
+- teste de insercao valida e invalida em transacao
 - execucao de `npm run check`
-- validacao de tipagem com `npm run typecheck`
-- validacao de build com `npm run build`
 - revisao documental e registro em `docs/WORKLOG.md`
 
 ## Limites Deliberados
 
-- nao implementa `Paciente`
-- nao implementa `Usuario`
-- nao implementa `Prontuario`
 - nao adiciona regra de negocio fora do schema
-- nao cria camadas funcionais completas dos outros dominios
-- nao assume desenvolvimento funcional da parte de outro participante, mesmo quando a branch e atualizada com `develop`
+- nao cria camadas funcionais completas dos modulos
+- o foco desta entrega continua sendo a integridade relacional da modelagem, nao os fluxos de negocio

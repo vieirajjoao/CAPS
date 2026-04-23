@@ -1,17 +1,21 @@
-import { pgTable, varchar, pgEnum, text } from "drizzle-orm/pg-core";
+import { index, mysqlEnum, mysqlTable, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
-// Enum do dominio de usuario; mantido como veio da branch desse modulo.
-export const perfilEnum = pgEnum("perfil", ["admin", "médico", "atendente"]);
-
-// Esse schema fica separado do de Consulta pra cada integrante cuidar do seu.
-export const usuarios = pgTable("usuarios", {
-    cpf: varchar("id_usuario", { length: 11 }).primaryKey(),
-    nome: varchar("nome_usuario", { length: 255 }).notNull(),
-    email: varchar("email_usuario", { length: 320 }).notNull().unique(),
-    senha: varchar("senha_usuario").notNull(),
-    perfil: perfilEnum("perfil").notNull(),
-    crm: varchar("crm_usuario", { length: 20 }),
-});
+export const usuarios = mysqlTable(
+  "usuarios",
+  {
+    // O id do usuario precisa casar com as FKs de consulta e prontuario.
+    id_usuario: varchar("id_usuario", { length: 11 }).primaryKey(),
+    nome_usuario: varchar("nome_usuario", { length: 255 }).notNull(),
+    email_usuario: varchar("email_usuario", { length: 320 }).notNull(),
+    senha_usuario: varchar("senha_usuario", { length: 255 }).notNull(),
+    perfil: mysqlEnum("perfil", ["admin", "medico", "atendente"]).notNull(),
+    crm_usuario: varchar("crm_usuario", { length: 20 }),
+  },
+  (table) => ({
+    usuariosEmailUnique: uniqueIndex("usuarios_email_unique").on(table.email_usuario),
+    usuariosPerfilIdx: index("usuarios_perfil_idx").on(table.perfil),
+  }),
+);
 
 export type Usuario = typeof usuarios.$inferSelect;
 export type NovoUsuario = typeof usuarios.$inferInsert;

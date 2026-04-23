@@ -1,0 +1,416 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "7ad27856-1366-48c2-b6ac-b6a3dc51ec82",
+  "prevId": "7355ed3a-a64d-45cd-bb14-d546eda9232b",
+  "tables": {
+    "consultas": {
+      "name": "consultas",
+      "columns": {
+        "id_consulta": {
+          "name": "id_consulta",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_paciente": {
+          "name": "id_paciente",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_usuario": {
+          "name": "id_usuario",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data_hora": {
+          "name": "data_hora",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "enum('agendada','concluida','cancelada')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'agendada'"
+        },
+        "obs": {
+          "name": "obs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "atualizado_em": {
+          "name": "atualizado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "consultas_paciente_idx": {
+          "name": "consultas_paciente_idx",
+          "columns": [
+            "id_paciente"
+          ],
+          "isUnique": false
+        },
+        "consultas_usuario_idx": {
+          "name": "consultas_usuario_idx",
+          "columns": [
+            "id_usuario"
+          ],
+          "isUnique": false
+        },
+        "consultas_data_hora_idx": {
+          "name": "consultas_data_hora_idx",
+          "columns": [
+            "data_hora"
+          ],
+          "isUnique": false
+        },
+        "consultas_usuario_data_hora_unique": {
+          "name": "consultas_usuario_data_hora_unique",
+          "columns": [
+            "id_usuario",
+            "data_hora"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "consultas_id_paciente_pacientes_id_paciente_fk": {
+          "name": "consultas_id_paciente_pacientes_id_paciente_fk",
+          "tableFrom": "consultas",
+          "tableTo": "pacientes",
+          "columnsFrom": [
+            "id_paciente"
+          ],
+          "columnsTo": [
+            "id_paciente"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "consultas_id_usuario_usuarios_id_usuario_fk": {
+          "name": "consultas_id_usuario_usuarios_id_usuario_fk",
+          "tableFrom": "consultas",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "id_usuario"
+          ],
+          "columnsTo": [
+            "id_usuario"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "consultas_id_consulta": {
+          "name": "consultas_id_consulta",
+          "columns": [
+            "id_consulta"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "pacientes": {
+      "name": "pacientes",
+      "columns": {
+        "id_paciente": {
+          "name": "id_paciente",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nome_paciente": {
+          "name": "nome_paciente",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data_nascimento_paciente": {
+          "name": "data_nascimento_paciente",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "endereco_paciente": {
+          "name": "endereco_paciente",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "telefone_paciente": {
+          "name": "telefone_paciente",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "convenio_medico_paciente": {
+          "name": "convenio_medico_paciente",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hf_paciente": {
+          "name": "hf_paciente",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hs_paciente": {
+          "name": "hs_paciente",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "pacientes_nome_idx": {
+          "name": "pacientes_nome_idx",
+          "columns": [
+            "nome_paciente"
+          ],
+          "isUnique": false
+        },
+        "pacientes_telefone_idx": {
+          "name": "pacientes_telefone_idx",
+          "columns": [
+            "telefone_paciente"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "pacientes_id_paciente": {
+          "name": "pacientes_id_paciente",
+          "columns": [
+            "id_paciente"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "usuarios": {
+      "name": "usuarios",
+      "columns": {
+        "id_usuario": {
+          "name": "id_usuario",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nome_usuario": {
+          "name": "nome_usuario",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email_usuario": {
+          "name": "email_usuario",
+          "type": "varchar(320)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "senha_usuario": {
+          "name": "senha_usuario",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "perfil": {
+          "name": "perfil",
+          "type": "enum('admin','medico','atendente')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "crm_usuario": {
+          "name": "crm_usuario",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "usuarios_email_unique": {
+          "name": "usuarios_email_unique",
+          "columns": [
+            "email_usuario"
+          ],
+          "isUnique": true
+        },
+        "usuarios_perfil_idx": {
+          "name": "usuarios_perfil_idx",
+          "columns": [
+            "perfil"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "usuarios_id_usuario": {
+          "name": "usuarios_id_usuario",
+          "columns": [
+            "id_usuario"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "prontuario": {
+      "name": "prontuario",
+      "columns": {
+        "id_prontuario": {
+          "name": "id_prontuario",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "id_paciente": {
+          "name": "id_paciente",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_usuario": {
+          "name": "id_usuario",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "anamnese": {
+          "name": "anamnese",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "criado_em": {
+          "name": "criado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "atualizado_em": {
+          "name": "atualizado_em",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "prontuario_paciente_idx": {
+          "name": "prontuario_paciente_idx",
+          "columns": [
+            "id_paciente"
+          ],
+          "isUnique": false
+        },
+        "prontuario_usuario_idx": {
+          "name": "prontuario_usuario_idx",
+          "columns": [
+            "id_usuario"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "prontuario_id_paciente_pacientes_id_paciente_fk": {
+          "name": "prontuario_id_paciente_pacientes_id_paciente_fk",
+          "tableFrom": "prontuario",
+          "tableTo": "pacientes",
+          "columnsFrom": [
+            "id_paciente"
+          ],
+          "columnsTo": [
+            "id_paciente"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "prontuario_id_usuario_usuarios_id_usuario_fk": {
+          "name": "prontuario_id_usuario_usuarios_id_usuario_fk",
+          "tableFrom": "prontuario",
+          "tableTo": "usuarios",
+          "columnsFrom": [
+            "id_usuario"
+          ],
+          "columnsTo": [
+            "id_usuario"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "prontuario_id_prontuario": {
+          "name": "prontuario_id_prontuario",
+          "columns": [
+            "id_prontuario"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}

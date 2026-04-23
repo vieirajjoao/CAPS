@@ -1,6 +1,6 @@
 # Documentacao do Projeto
 
-Este diretorio concentra os documentos tecnicos, organizacionais e operacionais da branch `feature/consulta-slurkronox`.
+Este diretorio concentra os documentos tecnicos, organizacionais e operacionais do CAPS.
 
 ## Ordem Recomendada de Leitura
 
@@ -34,7 +34,7 @@ Este diretorio concentra os documentos tecnicos, organizacionais e operacionais 
 - `caps-flow.md`
 - `checklist-equipe.md`
 
-### Entrega Desta Branch
+### Entregas e Modelagem
 
 - `entrega-consulta.md`
 - `checklist-final-consulta.md`
@@ -50,3 +50,4 @@ Este diretorio concentra os documentos tecnicos, organizacionais e operacionais 
 - evitar documentos que prometam implementacoes inexistentes
 - registrar mudancas relevantes em `WORKLOG.md`
 - revisar links, nomes e checklist antes de cada commit
+- manter schema, migration e documentacao sincronizados quando houver mudanca estrutural no banco
