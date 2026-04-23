@@ -110,3 +110,15 @@
 - Descricao objetiva: alinhamento da configuracao de ambiente com o Drizzle, geracao da migration inicial da entidade Consulta e adicao de comentarios curtos e naturais nos arquivos de codigo pra facilitar leitura, manutencao e entendimento da branch.
 - Commit: b0a13f0 - refactor(base): align drizzle setup and clarify core files
 - Status do push: ok
+
+## 2026-04-23 15:01
+
+- Integrante: Savio de Brito Oliveira Filho
+- Responsabilidade: integridade referencial e alinhamento do schema MySQL
+- Branch: feature/repo-health-stability
+- Arquivos alterados: README.md, docs/README.md, docs/das.md, docs/entrega-consulta.md, docs/modelo-de-dados.md, drizzle/0001_cold_nuke.sql, drizzle/meta/0001_snapshot.json, drizzle/meta/_journal.json, src/db/schema/consultas.ts, src/db/schema/index.ts, src/db/schema/pacientes.ts, src/db/schema/prontuario.ts, src/db/schema/relations.ts, src/db/schema/usuarios.ts
+- Linhas adicionadas: 720
+- Linhas removidas: 164
+- Descricao objetiva: alinhamento dos schemas para MySQL, criacao de foreign keys reais entre consultas/prontuario e pacientes/usuarios, geracao da migration consolidada, adicao das relations do Drizzle e atualizacao da documentacao tecnica para refletir a integridade referencial validada no banco.
+- Commit: 21061fe - feat(db): enforce foreign keys across clinical schemas
+- Status do push: ok
