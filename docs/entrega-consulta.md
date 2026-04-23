@@ -1,16 +1,15 @@
-# Entrega da Consulta
+# Entidade Consulta
 
 ## Finalidade
 
-A entidade `Consulta` representa o atendimento agendado ou realizado entre um paciente e um profissional de saude, registrando identificacao, vinculos, horario, status e metadados de auditoria.
+A entidade `Consulta` representa o atendimento agendado ou realizado entre paciente e profissional de saude, registrando identificacao, vinculos, horario, status e metadados de auditoria.
 
-## Arquivos Principais da Entrega
+## Arquivos Relevantes
 
 - `src/db/schema/consultas.ts`
 - `src/db/schema/index.ts`
+- `drizzle/0000_smart_tenebrous.sql`
 - `docs/modelo-de-dados.md`
-- `docs/checklist-final-consulta.md`
-- `docs/pull-request-consulta.md`
 
 ## Campos Implementados
 
@@ -32,27 +31,23 @@ A entidade `Consulta` representa o atendimento agendado ou realizado entre um pa
 
 ## Relacionamentos Mantidos por Identificador
 
-Nesta entrega, os relacionamentos foram mantidos por:
+Os relacionamentos atuais foram mantidos por:
 
 - `id_paciente`
 - `id_usuario`
 
-Essa decisao evita implementar `Paciente` e `Usuario` nesta branch e preserva o escopo dos outros integrantes.
+Essa decisao simplifica a modelagem inicial e evita acoplamento prematuro com chaves estrangeiras ainda nao consolidadas no restante da base.
 
-## Validacao Realizada
+## Situacao Atual dentro do Projeto
 
-- validacao estrutural da arquitetura base da branch
-- leitura e revisao do diff contra `develop`
-- execucao de `npm run check`
-- validacao de tipagem com `npm run typecheck`
-- validacao de build com `npm run build`
-- revisao documental e registro em `docs/WORKLOG.md`
+Hoje `Consulta` e o schema mais alinhado com a configuracao MySQL do repositorio:
 
-## Limites Deliberados
+- usa `mysql-core`
+- ja possui migration gerada
+- esta exportado no indice central de schemas
 
-- nao implementa `Paciente`
-- nao implementa `Usuario`
-- nao implementa `Prontuario`
-- nao adiciona regra de negocio fora do schema
-- nao cria camadas funcionais completas dos outros dominios
-- nao assume desenvolvimento funcional da parte de outro participante, mesmo quando a branch e atualizada com `develop`
+## Limites Atuais
+
+- os relacionamentos ainda sao logicos, nao por foreign key real
+- a integracao com `Paciente` e `Usuario` ainda depende da consolidacao dos outros schemas
+- a camada de dominio ainda nao tem service, repository, controller ou route implementados

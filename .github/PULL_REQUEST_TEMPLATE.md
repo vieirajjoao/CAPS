@@ -22,6 +22,7 @@
 - [ ] branch correta utilizada
 - [ ] diff revisado
 - [ ] documentacao atualizada
+- [ ] wiki revisada ou atualizada, quando aplicavel
 - [ ] `docs/WORKLOG.md` atualizado
 - [ ] push concluido
 

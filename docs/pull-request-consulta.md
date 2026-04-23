@@ -1,68 +1,62 @@
-# Pull Request da Consulta
+# Guia de Pull Request
 
-## Titulo Sugerido
+## Objetivo
 
-`feat(consulta): add consulta schema and professional project bootstrap`
+Servir como roteiro para PRs tecnicos do CAPS, especialmente quando a entrega envolve modelagem, documentacao, refinamento estrutural ou sincronizacao entre repositorio e wiki.
 
-## Resumo
+## Estrutura Recomendada
 
-Esta branch entrega o schema da entidade `Consulta` e organiza o repositorio CAPS para um nivel mais profissional, com base executavel, configuracao do ambiente, conexao Drizzle, documentacao tecnica e material de PR.
+### Titulo
 
-## O que foi feito
+Usar titulo claro e semantico, por exemplo:
 
-- criacao do schema `Consulta` em `src/db/schema/consultas.ts`
-- export do schema em `src/db/schema/index.ts`
-- configuracao do projeto com `package.json`, `tsconfig.json` e `.env.example`
-- adicao do bootstrap minimo do servidor em `src/server.ts`
-- separacao da aplicacao HTTP em `src/app.ts`
-- adicao de `src/config/env.ts` para leitura tipada do ambiente
-- adicao de `src/db/index.ts` para conexao MySQL + Drizzle
-- adicao de middlewares centrais para `404` e tratamento de erro
-- criacao do `drizzle.config.ts`
-- organizacao da estrutura modular em `src/modules/`
-- limpeza de placeholders antigos
-- ampliacao da documentacao tecnica, operacional e de PR
+- `docs(project): refine repository documentation and sync wiki`
+- `feat(consulta): update consulta schema and related docs`
+- `refactor(structure): align project base with current implementation`
 
-## Arquivos Principais
+### Resumo
 
-- `package.json`
-- `tsconfig.json`
-- `.env.example`
-- `drizzle.config.ts`
-- `src/config/env.ts`
-- `src/db/index.ts`
-- `src/app.ts`
-- `src/db/schema/consultas.ts`
-- `src/db/schema/index.ts`
-- `src/server.ts`
-- `docs/`
+Explicar em poucas linhas:
 
-## Impacto Tecnico
+- o que foi alterado
+- por que foi alterado
+- se o foco foi codigo, documentacao, arquitetura ou integracao
 
-- transforma a branch em uma base executavel e validavel
-- estrutura a entidade `Consulta` com indices e restricao de agendamento
-- deixa o projeto mais claro para os demais integrantes continuarem
-- melhora a rastreabilidade por README, guias, checklist e WORKLOG
+### Alteracoes Principais
 
-## Limites da Entrega
+Listar os arquivos ou grupos de arquivos mais relevantes.
 
-- nao implementa o dominio funcional de `Paciente`
-- nao implementa o dominio funcional de `Usuario`
-- nao implementa o dominio funcional de `Prontuario`
-- nao adiciona controllers, services, routes ou repositories funcionais
+### Validacao
 
-## Validacao Realizada
+Registrar o que foi executado, por exemplo:
 
-- `npm install`
 - `npm run check`
-- `npm run typecheck`
-- `npm run build`
-- revisao do diff contra `caps/develop`
-- conferencia do `WORKLOG.md`
+- revisao de `git diff`
+- validacao de README, docs e wiki
+- smoke test dos endpoints basicos, quando aplicavel
 
-## Observacoes
+### Impacto Tecnico
 
-- os relacionamentos da consulta foram mantidos por identificadores `id_paciente` e `id_usuario`
-- a branch correta foi mantida sem criar branch extra
-- a branch foi atualizada com `caps/develop` sem reimplementar a parte funcional de outros participantes
-- o alvo de merge continua sendo `develop`
+Esclarecer se o PR:
+
+- altera estrutura
+- atualiza modelagem
+- corrige documentacao
+- melhora rastreabilidade
+- expone algum ponto de atencao tecnico
+
+### Observacoes
+
+Usar este bloco para:
+
+- inconsistencias conhecidas
+- limites do escopo
+- dependencias de validacao do time
+
+## Regras para um PR Bom
+
+- manter escopo objetivo
+- nao misturar dominios sem necessidade
+- nao abrir PR com documentacao desalinhada do codigo
+- nao omitir pendencias tecnicas relevantes
+- manter o alvo em `develop`, salvo excecao explicitamente combinada

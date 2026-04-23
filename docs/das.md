@@ -23,16 +23,26 @@ O CAPS adota uma arquitetura de monolito modular em camadas para manter o projet
 ## Estrutura Base
 
 ```text
+drizzle/
+|-- 0000_smart_tenebrous.sql
+`-- meta/
 src/
+|-- app.ts
 |-- config/
 |   `-- env.ts
 |-- core/
 |   |-- errors/
+|   |   `-- app-error.ts
 |   `-- middlewares/
+|       |-- error-handler.ts
+|       `-- not-found-handler.ts
 |-- db/
 |   |-- index.ts
 |   `-- schema/
 |       |-- consultas.ts
+|       |-- pacientes.ts
+|       |-- prontuario.ts
+|       |-- usuarios.ts
 |       `-- index.ts
 |-- modules/
 |   |-- consultas/
@@ -48,18 +58,33 @@ src/
 - `core`: erros e middlewares reutilizaveis
 - `db`: conexao com banco e schemas Drizzle
 - `modules`: organizacao por dominio e responsabilidade funcional
+- `app.ts`: composicao da aplicacao Express
 - `server.ts`: bootstrap HTTP da aplicacao
 
-## Decisoes Tecnicas Desta Branch
+## Decisoes Tecnicas Atuais
 
 - o bootstrap do servidor foi mantido minimo para garantir validacao rapida
 - a conexao Drizzle foi centralizada em `src/db/index.ts`
-- o schema de `Consulta` permanece isolado para respeitar o escopo do integrante responsavel
-- os modulos de outros dominios foram preparados apenas com estrutura, sem implementacao de negocio
+- a configuracao de ambiente foi centralizada em `src/config/env.ts`
+- os modulos foram preparados por dominio, mesmo sem implementacao funcional completa
+- a primeira migration gerada no projeto cobre apenas a tabela `consultas`
 
-## Riscos e Limites Atuais
+## Estado Atual da Implementacao
+
+- `src/app.ts` e `src/server.ts` deixam a base executavel localmente
+- `src/db/schema/consultas.ts` esta alinhado com `mysql-core`
+- `src/db/schema/usuarios.ts`, `src/db/schema/pacientes.ts` e `src/db/schema/prontuario.ts` ainda usam `pg-core`
+- `src/modules/` ja esta organizado por dominio, mas sem controllers, services, repositories e routes implementados
+
+## Riscos e Pontos de Atencao
 
 - ainda nao existem controllers, services, repositories e routes implementados
-- so o schema de `Consulta` foi modelado nesta branch
-- migracoes ainda nao foram geradas
+- a base esta configurada para MySQL, mas tres schemas ainda nao acompanham esse dialeto
+- a migration existente em `drizzle/` cobre apenas `Consulta`
 - a integracao com banco depende da configuracao local do `.env`
+
+## Diretriz de Evolucao
+
+- alinhar todos os schemas ao mesmo dialeto antes de consolidar novas migrations
+- manter a documentacao sincronizada com a base real, inclusive quando houver pendencias tecnicas
+- preservar o fluxo `feature/* -> PR -> develop` para evitar mistura de escopo

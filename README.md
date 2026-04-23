@@ -1,24 +1,39 @@
 # CAPS
 
-API academica para gestao clinica com Node.js, Express, MySQL, Drizzle ORM e TypeScript.
+API academica para gestao clinica com Node.js, Express, TypeScript, MySQL e Drizzle ORM.
 
-## Objetivo
+## Visao Geral
 
-O projeto CAPS organiza o backend de uma clinica medica em torno de quatro dominios principais:
+O CAPS organiza o backend de uma clinica medica em torno de quatro dominios:
 
 - usuarios
 - pacientes
 - consultas
 - prontuarios
 
-Nesta branch, a implementacao de dominio entregue continua restrita a `Consulta`, mas a base do repositorio foi organizada para ficar executavel, validavel e pronta para evolucao em equipe.
+O projeto ja possui uma base executavel, configuracao de ambiente, estrutura modular, middlewares globais, conexao com banco e schemas iniciais. A documentacao deste repositorio acompanha o estado real do codigo e registra os pontos que ainda precisam de alinhamento tecnico.
 
-## Estado Atual da Branch
+## Estado Atual do Projeto
 
-- Branch de trabalho: `feature/consulta-slurkronox`
-- Responsavel: `Savio de Brito Oliveira Filho`
-- Escopo funcional entregue: `schema Consulta`
-- Escopo estrutural adicional: bootstrap do projeto, configuracao TypeScript, ambiente, conexao Drizzle e organizacao documental
+Hoje o repositorio contem:
+
+- bootstrap HTTP com `app.ts` e `server.ts`
+- validacao de ambiente com Zod em `src/config/env.ts`
+- conexao com MySQL e Drizzle em `src/db/index.ts`
+- schema e migration inicial de `Consulta`
+- schemas iniciais para `Usuario`, `Paciente` e `Prontuario`
+- estrutura modular pronta para controllers, services, repositories e routes
+- documentacao tecnica, operacional e de rastreabilidade
+
+## Pontos de Atencao Tecnicos
+
+- `drizzle.config.ts` e `src/db/index.ts` estao configurados para MySQL
+- `src/db/schema/consultas.ts` usa `mysql-core`, coerente com a configuracao atual
+- `src/db/schema/usuarios.ts`, `src/db/schema/pacientes.ts` e `src/db/schema/prontuario.ts` ainda usam `pg-core`
+- a migration em `drizzle/` hoje reflete apenas a tabela `consultas`
+- as pastas em `src/modules/` ja existem, mas ainda estao so com estrutura base
+
+Esses pontos nao impedem leitura, build e organizacao do projeto, mas precisam ser considerados antes de uma consolidacao completa do banco em MySQL.
 
 ## Stack
 
@@ -39,16 +54,16 @@ Nesta branch, a implementacao de dominio entregue continua restrita a `Consulta`
 npm install
 ```
 
-4. Valide os tipos:
+4. Valide a base:
 
 ```bash
-npm run typecheck
+npm run check
 ```
 
-5. Gere a build:
+5. Gere migrations com o Drizzle, se necessario:
 
 ```bash
-npm run build
+npm run db:generate
 ```
 
 6. Rode em desenvolvimento:
@@ -57,15 +72,30 @@ npm run build
 npm run dev
 ```
 
+## Variaveis de Ambiente
+
+Exemplo base:
+
+```env
+APP_PORT=3333
+NODE_ENV=development
+DATABASE_URL=mysql://root:@localhost:3307/caps
+DB_HOST=localhost
+DB_PORT=3307
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=caps
+```
+
 ## Scripts Disponiveis
 
-- `npm run dev`: sobe o servidor em modo de desenvolvimento com `tsx`
+- `npm run dev`: sobe o servidor com `tsx`
 - `npm run build`: compila o projeto para `dist/`
-- `npm run check`: executa `typecheck` e `build` em sequencia
+- `npm run check`: executa `typecheck` e `build`
 - `npm run start`: executa a build compilada
 - `npm run typecheck`: valida a tipagem sem gerar artefatos
-- `npm run db:generate`: gera arquivos do Drizzle Kit
-- `npm run db:migrate`: executa migracoes do Drizzle Kit
+- `npm run db:generate`: gera migrations com Drizzle Kit
+- `npm run db:migrate`: executa migrations
 - `npm run db:studio`: abre o Drizzle Studio
 
 ## Estrutura do Projeto
@@ -87,6 +117,9 @@ CAPS/
 |   |-- modelagem-e-requisitos.md
 |   |-- modelo-de-dados.md
 |   `-- pull-request-consulta.md
+|-- drizzle/
+|   |-- 0000_smart_tenebrous.sql
+|   `-- meta/
 |-- src/
 |   |-- app.ts
 |   |-- config/
@@ -101,6 +134,9 @@ CAPS/
 |   |   |-- index.ts
 |   |   `-- schema/
 |   |       |-- consultas.ts
+|   |       |-- pacientes.ts
+|   |       |-- prontuario.ts
+|   |       |-- usuarios.ts
 |   |       `-- index.ts
 |   |-- modules/
 |   |   |-- consultas/
@@ -114,28 +150,19 @@ CAPS/
 `-- tsconfig.json
 ```
 
-## Entrega Tecnica Desta Branch
+## Validacao Local
 
-O schema de `Consulta` foi implementado em [src/db/schema/consultas.ts](src/db/schema/consultas.ts) com:
+Hoje a base permite validar com:
 
-- identificador unico da consulta
-- referencia ao paciente por `id_paciente`
-- referencia ao usuario responsavel por `id_usuario`
-- data e hora do atendimento
-- status controlado por enum
-- observacoes livres
-- timestamps de criacao e atualizacao
-- `uniqueIndex` para impedir dois agendamentos do mesmo medico no mesmo horario
+- `npm run typecheck`
+- `npm run build`
+- `npm run check`
 
-Os demais dominios nao foram implementados nesta branch para evitar invasao do escopo de outros integrantes.
+Quando o servidor sobe corretamente:
 
-## Melhorias Estruturais Recentes
-
-- separacao entre `app` e `server` para facilitar testes e bootstrap
-- middleware central para tratamento de erro
-- middleware de `404` para rotas inexistentes
-- encerramento gracioso do servidor em `SIGINT` e `SIGTERM`
-- script `npm run check` para validacao rapida da branch
+- `GET /` retorna `200`
+- `GET /health` retorna `200`
+- rotas inexistentes retornam `404` em JSON
 
 ## Documentacao
 
@@ -155,8 +182,9 @@ Os demais dominios nao foram implementados nesta branch para evitar invasao do e
 ## Fluxo de Branches
 
 1. atualizar `develop`
-2. criar ou usar a branch `feature/*` correta
+2. criar uma branch `feature/*` para a tarefa
 3. trabalhar apenas no proprio escopo
-4. revisar o diff
-5. registrar o trabalho em `docs/WORKLOG.md`
-6. abrir Pull Request para `develop`
+4. revisar o diff localmente
+5. validar o que o projeto suporta
+6. atualizar a documentacao e o `WORKLOG`, quando aplicavel
+7. abrir Pull Request para `develop`
