@@ -2,11 +2,13 @@ import express, { type Request, type Response } from "express";
 import { errorHandler } from "./core/middlewares/error-handler";
 import { notFoundHandler } from "./core/middlewares/not-found-handler";
 
+import { userRouter } from "./modules/usuarios/routes/userRouter";
+
 export const app = express();
 
 // Ja deixa o body em JSON pronto pra n repetir isso nas rotas.
 app.use(express.json());
-
+app.use(userRouter)
 // Rota base so pra bater o olho e ver se a API subiu.
 app.get("/", (_request: Request, response: Response) => {
   response.status(200).json({
